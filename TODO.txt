@@ -4,6 +4,7 @@ What are the roles you are thinking to give to person
 	1. Can actually create user
 	2. Can delete a user
 	3. He will just have to create username and password, give it to prof further he can go through
+
 2. Prof
 	1. Will need to enter details of webmail to go ahead
 	2. Can easily manage his courses, reseach papers, etc.
@@ -14,3 +15,30 @@ What are the roles you are thinking to give to person
 	7. Can turn a file into public or private as per requirements
 
 ***Remove mailboxes setting from there just keep it in a view***
+1. If Want to list interns 
+
+
+What will a teachers registration form contain
+	1. Webmail Id Password
+	2. Name
+	3. Date Of Birth
+	4. Phone Number
+	5. Address
+	6. Facebook Profile Url
+	7. Current Position
+	8. Department
+	9. Interest Fields
+	10.Qualifications
+	11.Room No
+
+Resources
+Icons
+Google Icons - https://material.io/icons
+Font Awesome
+EAACEdEose0cBADueRtRNshLcPaxy26qIPHBH8W46BRVFGA1cS1OFmAgZAYZCQL2iqRhU5gWdwu8bfTFfIEGAyjmm1EgXyObNZBGNuIa4ZAYPUjueoDlP14gCVpt9ZABVN9GBMMQXZCtAdAZAc1uT7TEmNAr8ePIaD91ZCOpz0ZCRGIZBSJqZCcGP8iRIZAZB9ThZCZCOZAYo13xj6obsUPhE1FOYRrBanb7gRZAIKkrsZD
+100012450630795/picture?type=large
+
+
+6LdfzzcUAAAAAFbZb4nuuMRtWyfN57FDrcX7aDDX
+
+6LdfzzcUAAAAACBLIL0jrLqyatnrroXgB_VfIFPw

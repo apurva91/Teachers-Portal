@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_mailbox',
+    'portal',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+GOOGLE_RECAPTCHA_SITE_KEY="6LdfzzcUAAAAAFbZb4nuuMRtWyfN57FDrcX7aDDX"
+GOOGLE_RECAPTCHA_SECRET_KEY="6LdfzzcUAAAAACBLIL0jrLqyatnrroXgB_VfIFPw"
