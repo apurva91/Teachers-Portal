@@ -1,0 +1,16 @@
+TODO.txt
+What are the roles you are thinking to give to person
+1. Webmaster
+	1. Can actually create user
+	2. Can delete a user
+	3. He will just have to create username and password, give it to prof further he can go through
+2. Prof
+	1. Will need to enter details of webmail to go ahead
+	2. Can easily manage his courses, reseach papers, etc.
+	3. Profile photo auto update
+	4. Calander
+	5. Can manage his todo list there itself
+	6. Doubts and platforms management made easy
+	7. Can turn a file into public or private as per requirements
+
+***Remove mailboxes setting from there just keep it in a view***
