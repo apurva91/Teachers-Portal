@@ -40,3 +40,5 @@ def loginForm(request):
 
     return render(request, 'registration/login.html')
 
+def adminForm(request):
+    return render(request, 'portal/user.html')
