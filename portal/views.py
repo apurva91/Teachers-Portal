@@ -39,3 +39,4 @@ def loginForm(request):
             return render(request, 'registration/login.html', {'error_message': 'Invalid Captcha.'})
 
     return render(request, 'registration/login.html')
+
