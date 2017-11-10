@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_mailbox',
     'portal',
     'captcha',
+    'frontwork',
 ]
 
 MIDDLEWARE = [
