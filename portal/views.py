@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 
+
 def loginForm(request):
     if request.method == 'POST':
 
@@ -42,3 +43,4 @@ def loginForm(request):
 
 def adminForm(request):
     return render(request, 'portal/user.html')
+
