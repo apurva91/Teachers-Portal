@@ -69,7 +69,7 @@
                     <li><!-- start message -->
                       <a href="#">
                         <div class="pull-left">
-                          <img src="{% static 'Dash/img/tim_80x80.png'%}" class="img-circle" alt="User Image">
+                          <img src="/media/{{request.user.profile.avatar}}" class="img-circle" alt="User Image">
                         </div>
                         <h4>
                           Support Team
@@ -141,18 +141,18 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{% static 'Dash/img/tim_80x80.png'%}" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{request.user.first_name}} {{request.user.last_name}}</span>
+              <img src="/media/{{request.user.profile.avatar}}" class="user-image" alt="User Image">
+              <span class="hidden-xs">{{request.user.profile.name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{% static 'Dash/img/tim_80x80.png'%}" class="img-circle" alt="User Image">
+                <img src="/media/{{request.user.profile.avatar}}" class="img-circle" alt="User Image">
 
                 <p>
-                  {{request.user.first_name}} {{request.user.last_name}}
+                  {{request.user.profile.name}}
                   <br>
-                  {{resign}}
+                  {{request.user.profile.designation}}
                 </p>
               </li>
               <!-- Menu Body -->
@@ -199,10 +199,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{% static 'Dash/img/tim_80x80.png'%}" class="img-circle" alt="User Image">
+          <img src="/media/{{request.user.profile.avatar}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>{{request.user.first_name}} {{request.user.last_name}}</p>
+          <p>{{request.user.profile.name}}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>

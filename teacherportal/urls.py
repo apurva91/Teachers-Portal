@@ -16,14 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-
-
+from django.views.static import serve as media_server
+from .settings import MEDIA_ROOT
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^portal/', include('portal.urls')),
     url(r'^', include('frontwork.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-
+    url(r'^media/(?P<path>.*)$',media_server,{'document_root': MEDIA_ROOT, })
 	#url(r'^login/$', auth_views.login, name='login'),
 	#url(r'^logout/$', auth_views.logout, {'next_page': '/'} , name='logout'),
     #url(r'^tinymce/', include('tinymce.urls')),
