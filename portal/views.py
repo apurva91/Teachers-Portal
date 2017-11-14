@@ -72,14 +72,20 @@ def update_profile(request):
     })
 
 def dashboard(request):
-    # if not request.user.is_authenticated:
-    #     return redirect('/portal/login')
-    if request.method == 'POST':
-        form = CoursePageForm(request.POST)
-    else:
-        form=CoursePageForm()
-    return render(request,'portal/dash.html',{'form':form,})
+    # # if not request.user.is_authenticated:
+    # #     return redirect('/portal/login')
+    # if request.method=='POST':
+    #     form = CoursePageForm(request.POST,instance=user_data)
 
+    #     if form.is_valid():
+    #         user_data = form.save()
+    #         user_data.save()
+    #         return redirect('/portal/profile/'+str(user))
+    # else:
+    #     form = CoursePageForm()
+    #     return render(request, 'portal/dash.html', {'form':form})
+    # return render(request,'portal/dash.html',{'form':form,})
+    return render(request,'portal/dash.html')
 
-def manage_all_courses(request):
+def list_all_courses(request):
     return render(request,'portal/dash.html')
