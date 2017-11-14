@@ -3,27 +3,195 @@
 User Profile
 {%endblock%}
 {%block head%}
+<style type="text/css">
+	
+
+	.file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 12px;}
+	.file-upload .file-select{display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+	.file-upload .file-select .file-select-button{background:#dce4ec;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+	.file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+	.file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+	.file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+	.file-upload.active .file-select{border-color:#3fa46a;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+	.file-upload.active .file-select .file-select-button{background:#3fa46a;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+	.file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;left:0;opacity:0;filter:alpha(opacity=0);}
+	.file-upload .file-select.file-select-disabled{opacity:0.65;}
+	.file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+	.file-upload .file-select.file-select-disabled:hover .file-select-button{background:#dce4ec;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+	.file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+</style>
+{%endblock%}
+{%block title_inpage%}
+Profile
 {%endblock%}
 {%block content%}
 
+<div class="row">
+	<div class="col-xs-6">
+		<div class="box box-primary panel">
+			<div class="box-body box-profile">
+				&nbsp;
+				<div class="row">
+					<div class="col-md-3">
+						<img src="/media/{{request.user.profile.avatar}}" class="img-thumbnail img-circle">
+					</div>
+					<div class="col-md-6">
+						<h1 class="lead" style="font-size:40px;">{{request.user.profile.name}}</h1>
+						<h1 class="lead" style="font-size:30px;">{{request.user.profile.designation}}</h1>
+					</div>
+				</div>
+				<ul class="list-group list-group-unbordered">
+					<li class="list-group-item">
+						<b>Course Code</b> <a class="pull-right">{{c.course_id}}</a>
+					</li>
 
-<form method="POST" enctype="multipart/form-data">
-	{%with request.user.profile as rup%}
-<p><label for="id_name">Name:</label> <input type="text" name="name" value="{{rup.name}}" id="id_name" maxlength="30" /></p>
-<p><label for="id_designation">Designation:</label> <input type="text" name="designation" value="{{request.user.profile.designation}}" id="id_designation" maxlength="500" /></p>
-<p><label for="id_office">Office:</label> <input type="text" name="office" value="sdghsgh" id="id_office" maxlength="500" /></p>
-<p><label for="id_residence">Residence:</label> <input type="text" name="residence" value="fdgsdg" id="id_residence" maxlength="500" /></p>
-<p><label for="id_education">Education:</label> <input type="text" name="education" id="id_education" maxlength="500" /></p>
-<p><label for="id_workexp">Workexp:</label> <input type="text" name="workexp" id="id_workexp" maxlength="500" /></p>
-<p><label for="id_research">Research:</label> <input type="text" name="research" id="id_research" maxlength="500" /></p>
-<p><label for="id_avatar">Avatar:</label>
-<input type="file" name="avatar" id="id_avatar" /></p>
-	{%csrf_token%}
-	{%endwith%}
-	<input class="btn btn-danger" type="Submit" name="Submit">
-</form>
+					<li class="list-group-item">
+						<b>Year</b> <a class="pull-right">{{c.startdate}} - {{c.enddate}}</a>
+					</li>
+				</ul>
+				<div class="row">
+					<div class="col-xs-6">
+						<a href="{{c.url}}" class="btn btn-primary btn-block" target="_blank">Webpage</a>
+					</div>
+					<div class="col-xs-3">
+						<a href="#" onclick="$('.panel-edit').show(1000); $('.panel').hide();" class="btn btn-success btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+					</div>
+					<div class="col-xs-3">
+						<a href="#" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></a>
+					</div>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+			<!-- /.box -->
+		</div>
+		<div class="box box-primary panel-edit" style="display:none; ">
+			<div class="box-body box-profile">
+				<h3 class="profile-username text-center" style="font-size:25px;">Edit profile</h3>
+				<form method="POST" class="form-group" enctype="multipart/form-data">
+					{%with request.user.profile as rup%}
 
-Here we are.
+					<div class="row">
+						<div class="col-xs-4">
+							<label for="id_name">Name:</label>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" name="name" value="{{rup.name}}" id="id_name" maxlength="30" />
+						</div>
+						<br>
+						<br>
+
+						<div class="col-xs-4">
+							<label for="id_designation">Designation:</label>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" name="designation" value="{{rup.designation}}" id="id_designation" maxlength="500" />
+						</div>
+
+						<br>
+						<br>
+						<div class="col-xs-4">
+							<label for="id_office">Office:</label>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" name="office" value="{{rup.office}}"  id="id_office" maxlength="500" />
+						</div>
+						<br>
+						<br>
+						<div class="col-xs-4">
+							<label for="id_residence">Residence:</label>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" name="residence" value="{{rup.residence}}"  id="id_residence" maxlength="500" />
+						</div>
+
+						<br>
+						<br>
+						<div class="col-xs-4">
+							<label for="id_education">Education:</label>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" name="education" value="{{rup.education}}" id="id_education" maxlength="500" />
+						</div>
+						<br>
+						<br>
+						<div class="col-xs-4">
+							<label for="id_workexp">Workexp:</label>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" name="workexp" value="{{rup.workexp}}" id="id_workexp" maxlength="500" />
+						</div>
+
+						<br>
+						<br>
+						<div class="col-xs-4">
+							<label for="id_research">Research:</label>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" name="research" value="{{rup.research}}" id="id_research" maxlength="500" />
+						</div>
+						<br>
+						<br>
+						<div class="col-xs-4">
+							<label for="id_avatar">Avatar:</label>
+						</div>
+						<div class="col-xs-8">
+
+							<div class="file-upload">
+								<div class="file-select">
+									<div class="file-select-button" id="fileName">Choose File</div>
+									<div class="file-select-name" id="noFile">No file chosen...</div> 
+									<input type="file" name="avatar" id="id_avatar">
+								</div>
+							</div>
+
+
+							<!--<input type="file"  name="avatar" id="id_avatar" />
+						-->
+
+					</div>
+					{%csrf_token%}
+					{%endwith%}
+					<br>
+					<br>
+					<br>
+
+				</div>
+				<div class="col-xs-3"></div>
+				<div class="col-xs-6 text-center">
+					<input class="btn btn-warning btn-block" type="Submit" name="Submit">
+				</div>
+				<div class="col-xs-3"></div>
+			</form>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+		<!-- /.box -->
+	</div>
+</div>
+<div class="col-xs-6">
+Education
+
+</div>
+</div>
+
+
 {%endblock%}
+
+
 {%block customsc%}
+<script type="text/javascript">
+	$('#id_avatar').bind('change', function () {
+		var filename = $("#id_avatar").val();
+		if (/^\s*$/.test(filename)) {
+			$(".file-upload").removeClass('active');
+			$("#noFile").text("No file chosen..."); 
+		}
+		else {
+			$(".file-upload").addClass('active');
+			$("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+		}
+	});
+
+</script>
 {%endblock%}

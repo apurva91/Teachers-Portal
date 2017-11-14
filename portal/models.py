@@ -9,6 +9,7 @@ from django.db.models import OneToOneField
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30, blank=True)
@@ -33,6 +34,13 @@ class Profile(models.Model):
 # @receiver(post_save, sender=User)
 # def save_user_profile(sender, instance, **kwargs):
 #     instance.profile.save()
+
+class Education(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    degree=models.CharField(max_length=30)
+    desc=models.CharField(max_length=200)
+    institute=models.CharField(max_length=200)
+    year=models.IntegerField()
 
 class Course(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)

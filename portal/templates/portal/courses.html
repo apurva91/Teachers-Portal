@@ -5,82 +5,154 @@ Courses | Teacher's Portal
 {%endblock%}
 {%block head%}
 {%endblock%}
-{%block title_inpage%} Courses {%endblock%}
+{%block title_inpage%} Courses &nbsp;&nbsp;<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><big>+</big> Add New</button> {%endblock%}
 {%block content%}
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">New Course</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+
+					<form method="POST">
+						<div class="row">
+							<div class="col-md-3 col-xs-12">	
+								<div class="form-group">
+									<label for="id_course_id">Course ID</label> <input type="text" name="course_id" class="form-control" maxlength="7" required id="id_course_id"/>
+								</div>
+							</div>
+
+							<div class="col-md-9 col-xs-12">	
+								<div class="form-group">
+									<label for="id_title">Title</label> <input type="text" class="form-control" name="title" maxlength="50" required id="id_title" />
+
+								</div>
+							</div>
+
+							<div class="col-md-4 col-xs-12">	
+								<div class="form-group">
+									<label for="id_startdate">Start Date</label> <input type="text" class="form-control" name="startdate" id="id_startdate" placeholder="MM/DD/YYYY" />
+								</div>
+							</div>
+
+							<div class="col-md-4 col-xs-12">	
+								<div class="form-group">
+									<label for="id_enddate">End Date</label> <input type="text" class="form-control" name="enddate" id="id_enddate" placeholder="MM/DD/YYYY" />
+								</div>
+							</div>
+							<div class="col-md-3 col-xs-12">	
+								<div class="form-group">
+									<label for="id_active">Active</label> <input type="checkbox"  name="active" id="id_active" checked />
+								</div>
+							</div>
+							<div class="col-md-9 col-xs-12">	
+								<div class="form-group">
+									<label for="id_url">WebPage Link</label> <input type="url" class="form-control" name="url" maxlength="200" id="id_url" />
+								</div>
+							</div>
+							{%csrf_token%}
+						</div>
+						<input type="Submit" class="btn btn-primary" name="Submit">
+					</form>
+
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
 
 <h3>Current Courses</h3>
 <div class="row">
-
+	{%for c in course%}
 	<div class="col-md-4">
 
 		<!-- Profile Image -->
 		<div class="box box-primary">
 			<div class="box-body box-profile">
-				<h3 class="profile-username text-center">Course Title</h3>
+				<h3 class="profile-username text-center">{{c.title}}</h3>
 
 				<ul class="list-group list-group-unbordered">
 					<li class="list-group-item">
-						<b>Course Code</b> <a class="pull-right">CS221</a>
+						<b>Course Code</b> <a class="pull-right">{{c.course_id}}</a>
 					</li>
 
 					<li class="list-group-item">
-						<b>Year</b> <a class="pull-right">Jan 2016 - Apr 2016</a>
+						<b>Year</b> <a class="pull-right">{{c.startdate}} - {{c.enddate}}</a>
 					</li>
 				</ul>
 				<div class="row">
-				<div class="col-xs-6">
-				<a href="url" class="btn btn-primary btn-block">Webpage</a>
+					<div class="col-xs-6">
+						<a href="{{c.url}}" class="btn btn-primary btn-block" target="_blank">Webpage</a>
+					</div>
+					<div class="col-xs-3">
+						<a href="#" class="btn btn-success btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+					</div>
+					<div class="col-xs-3">
+						<a href="#" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></a>
+					</div>
 				</div>
-				<div class="col-xs-3">
-				<a href="#" class="btn btn-success btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-				</div>
-				<div class="col-xs-3">
-				<a href="#" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></a>
-				</div>
-				</div>
-			<!-- /.box-body -->
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+			<!-- /.box -->
 		</div>
-		<!-- /.box -->
-		<!-- /.box -->
 	</div>
-	</div>
+
+	{%endfor%}
+
 </div>
 <h3>Previous Courses</h3>
 <div class="row">
-
+	{%for c in incourse%}
 	<div class="col-md-4">
 
 		<!-- Profile Image -->
-		<div class="box ">
+		<div class="box">
 			<div class="box-body box-profile">
-				<h3 class="profile-username text-center">Course Title</h3>
+				<h3 class="profile-username text-center">{{c.title}}</h3>
 
 				<ul class="list-group list-group-unbordered">
 					<li class="list-group-item">
-						<b>Course Code</b> <a class="pull-right">CS221</a>
+						<b>Course Code</b> <a class="pull-right">{{c.course_id}}</a>
 					</li>
 
 					<li class="list-group-item">
-						<b>Year</b> <a class="pull-right">Jan 2016 - Apr 2016</a>
+						<b>Year</b> <a class="pull-right">{{c.startdate}} - {{c.enddate}}</a>
 					</li>
 				</ul>
 				<div class="row">
-				<div class="col-xs-2"></div>
-				<div class="col-xs-3">
-				<a href="#" class="btn btn-success btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+					<div class="col-xs-2"></div>
+					<div class="col-xs-3">
+						<a href="#" class="btn btn-success btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+					</div>
+					<div class="col-xs-2"></div>
+					<div class="col-xs-3">
+						<a href="#" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></a>
+					</div>
+					<div class="col-xs-2"></div>
 				</div>
-				<div class="col-xs-2"></div>
-				<div class="col-xs-3">
-				<a href="#" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></a>
-				</div>
-				<div class="col-xs-2"></div>
-				</div>
-			<!-- /.box-body -->
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+			<!-- /.box -->
 		</div>
-		<!-- /.box -->
-		<!-- /.box -->
 	</div>
-	</div>
+
+	{%endfor%}
+
 </div>
 
 {%endblock%}

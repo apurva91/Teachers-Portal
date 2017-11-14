@@ -4,11 +4,11 @@ from django.http import HttpResponse
 import json
 import urllib
 from django.conf import settings
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
-from .forms import CoursePageForm
-from .forms import UserForm, ProfileForm
-
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from .models import Profile, Course
+from .forms import CoursePageForm, UserForm, ProfileForm, EducationForm, CourseForm
+from django.db.models import Q
 def loginForm(request):
     if request.method == 'POST':
 
@@ -88,5 +88,30 @@ def dashboard(request):
     # return render(request,'portal/dash.html',{'form':form,})
     return render(request,'portal/dash.html')
 
+def addEducation(request):
+    if request.method=='POST':
+        form = EducationForm(request.POST)
+        if form.is_valid:
+            eduform=form.save(commit=False)
+            eduform.user=request.user
+            eduform.save()
+            return redirect('/portal/profile')
+
 def list_all_courses(request):
-    return render(request,'portal/courses.html')
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.user=request.user
+            tempuser = Profile.objects.get(user=request.user)
+            tempuser.courses = tempuser.courses +1
+            if course.active:
+                tempuser.active_courses = tempuser.active_courses +1
+            tempuser.save()
+            course.save()
+            return redirect('/portal/courses/')
+    else:
+        form = CourseForm()
+    course = Course.objects.filter(Q(user=request.user) & Q(active=1)).order_by('-startdate')
+    incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
+    return render(request, 'portal/courses.html', {'form': form, 'course':course, 'incourse':incourse,})
