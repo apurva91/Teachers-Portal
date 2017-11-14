@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from .forms import CoursePageForm
-
+from .forms import UserForm, ProfileForm
 
 def loginForm(request):
     if request.method == 'POST':
@@ -47,27 +47,28 @@ def loginForm(request):
 def adminForm(request):
     return render(request, 'portal/user.html')
 
-def update_profile(request, user_id):
-    user = User.objects.get(pk=user_id)
-    user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
-    user.save()
-
 def update_profile(request):
     if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, _('Your profile was successfully updated!'))
-            return redirect('settings:profile')
+        if request.user.profile:
+            profile_form = ProfileForm(request.POST,request.FILES,instance=request.user.profile)
         else:
-            messages.error(request, _('Please correct the error below.'))
+            profile_form = ProfileForm(request.POST,request.FILES)
+
+        if profile_form.is_valid():
+            profile_data = profile_form.save(commit=False)
+            if not request.user.profile:
+                profile_data.user = request.user
+            profile_data.save()
+            #messages.success(request, _('Your profile was successfully updated!'))
+            return redirect('/portal/profile')
+        #else:
+            #messages.error(request, _('Please correct the error below.'))
     else:
-        user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'portal/profile.html', {
-        'user_form': user_form,
+        if request.user.profile:
+            profile_form = ProfileForm(instance=request.user.profile)
+        else:
+            profile_form = ProfileForm()
+    return render(request, 'portal/user.html', {
         'profile_form': profile_form
     })
 

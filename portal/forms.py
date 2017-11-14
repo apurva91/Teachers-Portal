@@ -35,7 +35,7 @@ class UserForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ('name', 'designation', 'office', 'residence' , 'education', 'workexp' ,'research')
+        fields = ('name', 'designation', 'office', 'residence' , 'education', 'workexp' ,'research','avatar')
 
     def clean_avatar(self):
         avatar = self.cleaned_data['avatar']
@@ -44,7 +44,7 @@ class ProfileForm(ModelForm):
             w, h = get_image_dimensions(avatar)
 
             #validate dimensions
-            max_width = max_height = 100
+            max_width = max_height = 2000
             if w > max_width or h > max_height:
                 raise forms.ValidationError(
                     u'Please use an image that is '
@@ -52,12 +52,12 @@ class ProfileForm(ModelForm):
 
             #validate content type
             main, sub = avatar.content_type.split('/')
-            if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
+            if not (main == 'image' and sub in ['jpeg','jpg', 'pjpeg', 'gif', 'png']):
                 raise forms.ValidationError(u'Please use a JPEG, '
                     'GIF or PNG image.')
 
             #validate file size
-            if len(avatar) > (20 * 1024):
+            if len(avatar) > (4000 * 1024):
                 raise forms.ValidationError(
                     u'Avatar file size may not exceed 20k.')
 
