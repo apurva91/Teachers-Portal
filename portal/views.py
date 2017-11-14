@@ -88,4 +88,4 @@ def dashboard(request):
     return render(request,'portal/dash.html')
 
 def list_all_courses(request):
-    return render(request,'portal/dash.html')
+    return render(request,'portal/courses.html')
