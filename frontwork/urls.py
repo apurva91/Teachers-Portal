@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from . import views
+from portal.models import Profile
 
 urlpatterns = [
 	# url(r'^$', views.Index , name='index'),
@@ -15,4 +16,6 @@ urlpatterns = [
 	# url(r'^messagec/$',views.MsgCount, name='msgco'),
 	# url(r'^messages/(?P<reciever>([\wd._-])+)/refresh$',views.MsgRefresh, name='remsg'),
     url(r'^$', views.index, name="index"),
+    url(r'^list$', views.IndexView.as_view(), name="list"),
+    url(r'list/(?P<pk>[0-9]+)/$',views.fac_home, name="fac_home"),
 ]
