@@ -20,7 +20,8 @@ class Profile(models.Model):
     education = models.CharField(max_length=500, blank=True)
     workexp = models.CharField(max_length=500, blank=True)
     research = models.CharField(max_length=500, blank=True)
-
+    courses=models.IntegerField(default=0)
+    active_courses=models.IntegerField(default=0)
     def __str__(self):
         return self.user.username
 
@@ -37,11 +38,17 @@ class Course(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     course_id=models.CharField(max_length=7)
     title=models.CharField(max_length=50)
-    year=models.CharField(max_length=10)
+    startdate=models.DateField(blank=True)
+    enddate=models.DateField(blank=True)
+    url=models.URLField(blank=True)
+    active=models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
 
 class CoursePage(models.Model):
     course=models.ForeignKey(Course, on_delete=models.CASCADE)
-    content=RichTextUploadingField()
+    content=models.TextField()
     #content=HTMLField()
 
 class CourseSubPage(models.Model):

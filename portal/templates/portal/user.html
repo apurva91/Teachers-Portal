@@ -5,6 +5,24 @@ User Profile
 {%block head%}
 {%endblock%}
 {%block content%}
+
+
+<form method="POST" enctype="multipart/form-data">
+	{%with request.user.profile as rup%}
+<p><label for="id_name">Name:</label> <input type="text" name="name" value="{{rup.name}}" id="id_name" maxlength="30" /></p>
+<p><label for="id_designation">Designation:</label> <input type="text" name="designation" value="{{request.user.profile.designation}}" id="id_designation" maxlength="500" /></p>
+<p><label for="id_office">Office:</label> <input type="text" name="office" value="sdghsgh" id="id_office" maxlength="500" /></p>
+<p><label for="id_residence">Residence:</label> <input type="text" name="residence" value="fdgsdg" id="id_residence" maxlength="500" /></p>
+<p><label for="id_education">Education:</label> <input type="text" name="education" id="id_education" maxlength="500" /></p>
+<p><label for="id_workexp">Workexp:</label> <input type="text" name="workexp" id="id_workexp" maxlength="500" /></p>
+<p><label for="id_research">Research:</label> <input type="text" name="research" id="id_research" maxlength="500" /></p>
+<p><label for="id_avatar">Avatar:</label>
+<input type="file" name="avatar" id="id_avatar" /></p>
+	{%csrf_token%}
+	{%endwith%}
+	<input class="btn btn-danger" type="Submit" name="Submit">
+</form>
+
 Here we are.
 {%endblock%}
 {%block customsc%}
