@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+  </head>
+  <body>
+    <ul>
+    {% for item in all_items %}
+          <li><a href="list/{{ item.id }}">{{ item.name }}</a></li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
