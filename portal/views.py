@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 # Create your views here.
 import json
@@ -6,6 +6,7 @@ import urllib
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
+from .forms import CoursePageForm
 
 
 def loginForm(request):
@@ -31,15 +32,17 @@ def loginForm(request):
 	        if user is not None:
 	            if user.is_active:
 	                login(request, user)
-	                return HttpResponse("Logged In Successfully.")
+	                return redirect('/portal/')
 	            else:
 	                return HttpResponse("Account Disabled.")
 	        else:
 	        	return render(request, 'registration/login.html', {'error_message': 'Invalid Credentials.'})
         else:
             return render(request, 'registration/login.html', {'error_message': 'Invalid Captcha.'})
-
-    return render(request, 'registration/login.html')
+    if request.user.is_authenticated:
+        return redirect('/portal/')
+    else:
+        return render(request, 'registration/login.html')
 
 def adminForm(request):
     return render(request, 'portal/user.html')
@@ -68,3 +71,15 @@ def update_profile(request):
         'profile_form': profile_form
     })
 
+def dashboard(request):
+    # if not request.user.is_authenticated:
+    #     return redirect('/portal/login')
+    if request.method == 'POST':
+        form = CoursePageForm(request.POST)
+    else:
+        form=CoursePageForm()
+    return render(request,'portal/dash.html',{'form':form,})
+
+
+def manage_all_courses(request):
+    return render(request,'portal/dash.html')

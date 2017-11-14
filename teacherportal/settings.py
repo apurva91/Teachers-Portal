@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django_mailbox',
     'captcha',
     'frontwork',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -117,9 +119,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
+MEDIA_URL = '/media/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 GOOGLE_RECAPTCHA_SITE_KEY="6LdfzzcUAAAAAFbZb4nuuMRtWyfN57FDrcX7aDDX"
 GOOGLE_RECAPTCHA_SECRET_KEY="6LdfzzcUAAAAACBLIL0jrLqyatnrroXgB_VfIFPw"

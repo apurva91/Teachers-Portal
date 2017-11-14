@@ -4,11 +4,11 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.files.images import get_image_dimensions
+from django.forms import ModelForm
+from .models import Profile, CoursePage
 
-from .models import Profile
 
-
-# class PostForm(forms.ModelForm):
+# class PostForm(ModelForm):
 # 	topic = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 # 	#text = forms.CharField(widget=forms.Textarea(attrs={'rows':'5', 'cols':'50','class':'form-control'}))
 # 	class Meta:
@@ -27,12 +27,12 @@ from .models import Profile
 # 		model = User
 # 		fields=('username','first_name','last_name','email','password1','password2',)
 
-class UserForm(forms.ModelForm):
+class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
 
-class ProfileForm(forms.ModelForm):
+class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ('name', 'designation', 'office', 'residence' , 'education', 'workexp' ,'research')
@@ -70,3 +70,7 @@ class ProfileForm(forms.ModelForm):
 
         return avatar    
 
+class CoursePageForm(ModelForm):
+    class Meta:
+        model = CoursePage
+        fields = '__all__'
