@@ -115,3 +115,36 @@ def list_all_courses(request):
     course = Course.objects.filter(Q(user=request.user) & Q(active=1)).order_by('-startdate')
     incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
     return render(request, 'portal/courses.html', {'form': form, 'course':course, 'incourse':incourse,})
+
+def edit_course(request,id):
+    if request.method == 'POST':
+        form=CourseForm(request.POST)
+        if form.is_valid():
+            course = Course.objects.get(id=id)
+            if course.user.id != request.user.id:
+                return HttpResponse('404'+str(request.user)+str(course.user))
+            course1=form.save(commit=False)
+            course.title=course1.title
+            course.course_id=course1.course_id
+            course.startdate=course1.startdate
+            course.enddate=course1.enddate
+            course.url=course1.url
+            course.active=course1.active
+            course.save()
+            return redirect('/portal/courses/')
+    return redirect('/portal/courses/')
+
+def delete_course(request,id):
+    if request.method == 'POST':
+        course = Course.objects.get(id=id)
+        if course.user != request.user:
+            return HttpResponse('404')
+        tempuser = Profile.objects.get(user=request.user)
+        tempuser.courses = tempuser.courses -1
+        if course.active:
+            tempuser.active_courses = tempuser.active_courses -1
+        tempuser.save()
+        course.delete()
+
+        return redirect('/portal/courses/')
+    return redirect('/portal/courses/')

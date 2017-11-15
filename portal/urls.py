@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'courses/$', views.list_all_courses, name="list_all_courses"),
+    url(r'courses/edit/(?P<id>[0-9]+)$', views.edit_course, name="edit_course"),
+    url(r'courses/delete/(?P<id>[0-9]+)$', views.delete_course, name="delete_course"),
 ]
