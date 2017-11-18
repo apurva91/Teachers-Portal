@@ -128,6 +128,7 @@ def edit_course(request,id):
             course.course_id=course1.course_id
             course.startdate=course1.startdate
             course.enddate=course1.enddate
+            course.semester=course1.semester
             course.url=course1.url
             course.active=course1.active
             course.save()
@@ -138,7 +139,7 @@ def delete_course(request,id):
     if request.method == 'POST':
         course = Course.objects.get(id=id)
         if course.user != request.user:
-            return HttpResponse('404')
+            return HttpResponse('Dont Try To Mess With The System')
         tempuser = Profile.objects.get(user=request.user)
         tempuser.courses = tempuser.courses -1
         if course.active:

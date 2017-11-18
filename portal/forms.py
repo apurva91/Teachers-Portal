@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.files.images import get_image_dimensions
 from django.forms import ModelForm
-from .models import Profile, CoursePage, Education, Course
+from .models import * 
 
 
 # class PostForm(ModelForm):
@@ -83,4 +83,4 @@ class EducationForm(forms.ModelForm):
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ('course_id','title','startdate','enddate','url','active')
+        fields = ('course_id','title','startdate','enddate','url','semester','active')

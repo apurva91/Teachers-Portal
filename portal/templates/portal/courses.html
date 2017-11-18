@@ -40,15 +40,29 @@ Courses | Teacher's Portal
 
 							<div class="col-md-4 col-xs-12">	
 								<div class="form-group">
-									<label for="id_startdate">Start Date</label> <input type="text" class="form-control" name="startdate" id="id_startdate" placeholder="MM/DD/YYYY" />
+									<label for="id_startdate">Start Date</label><input type="text" name="startdate" maxlength="4" id="id_startdate" class="form-control" placeholder="YYYY" />
 								</div>
 							</div>
 
 							<div class="col-md-4 col-xs-12">	
 								<div class="form-group">
-									<label for="id_enddate">End Date</label> <input type="text" class="form-control" name="enddate" id="id_enddate" placeholder="MM/DD/YYYY" />
+									<label for="id_enddate">End Date</label><input type="text" name="enddate" maxlength="4" id="id_enddate" class="form-control" placeholder="YYYY" />
 								</div>
 							</div>
+
+							<div class="col-md-4 col-xs-12">	
+								<div class="form-group">
+									<label for="id_semester">Semester:</label>
+									<select name="semester" class="form-control" id="id_semester">
+										<option value="1" selected>Odd</option>
+
+										<option value="2">Even</option>
+
+									</select>
+
+								</div>
+							</div>
+
 							<div class="col-md-3 col-xs-12">	
 								<div class="form-group">
 									<label for="id_active">Active</label> <input type="checkbox"  name="active" id="id_active" checked />
@@ -75,47 +89,79 @@ Courses | Teacher's Portal
 </div>
 
 
-					<form method="POST" action="/portal/courses/edit/1">
-						<div class="row">
-							<div class="col-md-3 col-xs-12">	
-								<div class="form-group">
-									<label for="id_course_id">Course ID</label> <input type="text" name="course_id" class="form-control" maxlength="7" required id="id_course_id"/>
-								</div>
-							</div>
+<div id="editModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
 
-							<div class="col-md-9 col-xs-12">	
-								<div class="form-group">
-									<label for="id_title">Title</label> <input type="text" class="form-control" name="title" maxlength="50" required id="id_title" />
-
-								</div>
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Course</h4>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="editformsrc" action="/portal/courses/edit/1">
+					<div class="row edit-form">
+						<div class="col-md-3 col-xs-12">	
+							<div class="form-group">
+								<label for="id_course_id">Course ID</label> <input type="text" name="course_id" class="form-control" maxlength="7" required id="id_course_id"/>
 							</div>
-
-							<div class="col-md-4 col-xs-12">	
-								<div class="form-group">
-									<label for="id_startdate">Start Date</label> <input type="text" class="form-control" name="startdate" id="id_startdate" placeholder="MM/DD/YYYY" />
-								</div>
-							</div>
-
-							<div class="col-md-4 col-xs-12">	
-								<div class="form-group">
-									<label for="id_enddate">End Date</label> <input type="text" class="form-control" name="enddate" id="id_enddate" placeholder="MM/DD/YYYY" />
-								</div>
-							</div>
-							<div class="col-md-3 col-xs-12">	
-								<div class="form-group">
-									<label for="id_active">Active</label> <input type="checkbox"  name="active" id="id_active" checked />
-								</div>
-							</div>
-							<div class="col-md-9 col-xs-12">	
-								<div class="form-group">
-									<label for="id_url">WebPage Link</label> <input type="url" class="form-control" name="url" maxlength="200" id="id_url" />
-								</div>
-							</div>
-							{%csrf_token%}
 						</div>
-						<input type="Submit" class="btn btn-primary" name="Submit">
-					</form>
 
+						<div class="col-md-9 col-xs-12">	
+							<div class="form-group">
+								<label for="id_title">Title</label> <input type="text" class="form-control" name="title" maxlength="50" required id="id_title" />
+
+							</div>
+						</div>
+
+
+						<div class="col-md-4 col-xs-12">	
+							<div class="form-group">
+								<label for="id_startdate">Start Date</label><input type="text" name="startdate" maxlength="4" id="id_startdate" class="form-control" placeholder="YYYY" />
+							</div>
+						</div>
+
+						<div class="col-md-4 col-xs-12">	
+							<div class="form-group">
+								<label for="id_enddate">End Date</label><input type="text" name="enddate" maxlength="4" id="id_enddate" class="form-control" placeholder="YYYY" />
+							</div>
+						</div>
+
+						<div class="col-md-4 col-xs-12">	
+							<div class="form-group">
+								<label for="id_semester">Semester:</label>
+								<select name="semester" class="form-control" id="id_semester">
+									<option value="1" selected>Odd</option>
+
+									<option value="2">Even</option>
+
+								</select>
+
+							</div>
+						</div>
+						<div class="col-md-3 col-xs-12">	
+							<div class="form-group">
+								<label for="id_active">Active</label> <input type="checkbox"  name="active" id="id_active" />
+							</div>
+						</div>
+						<div class="col-md-9 col-xs-12">	
+							<div class="form-group">
+								<label for="id_url">WebPage Link</label> <input type="url" class="form-control" name="url" maxlength="200" id="id_url" />
+							</div>
+						</div>
+						{%csrf_token%}
+					</div>
+					<input type="Submit" class="btn btn-primary" name="Submit">
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
 
 <h3>Current Courses</h3>
 <div class="row">
@@ -124,29 +170,29 @@ Courses | Teacher's Portal
 
 		<!-- Profile Image -->
 		<div class="box box-primary">
-			<div class="box-body box-profile">
-				<h3 class="profile-username text-center">{{c.title}}</h3>
+			<div class="box-body box-profile" id="{{c.id}}act">
+				<h3 class="profile-username text-center coursetitle">{{c.title}}</h3>
 
 				<ul class="list-group list-group-unbordered">
 					<li class="list-group-item">
-						<b>Course Code</b> <a class="pull-right">{{c.course_id}}</a>
+						<b>Course Code</b> <a class="pull-right courseid">{{c.course_id}}</a>
 					</li>
 
 					<li class="list-group-item">
-						<b>Year</b> <a class="pull-right">{{c.startdate}} - {{c.enddate}}</a>
+						<b>Year</b> <a class="pull-right"><span class="semesterc">{%if c.semester is 2%}Even{%else%}Odd{%endif%}</span> Semester : <span class="startdate">{{c.startdate}}</span> - <span class="enddate">{{c.enddate}}</span></a>
 					</li>
 				</ul>
 				<div class="row">
 					<div class="col-xs-6">
-						<a href="{{c.url}}" class="btn btn-primary btn-block" target="_blank">Webpage</a>
+						<a href="{{c.url}}" class="btn btn-primary btn-block courseurl" target="_blank">Webpage</a>
 					</div>
 					<div class="col-xs-3">
-						<a href="#" class="btn btn-success btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+						<button href="#" class="btn btn-success btn-block" id="act{{c.id}}" onclick="forminit($(this).attr('id')); " data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 					</div>
 					<div class="col-xs-3">
 						<form method="POST" action="/portal/courses/delete/{{c.id}}">
-						{%csrf_token%}
-						<button type="Submit" value="" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button>
+							{%csrf_token%}
+							<button type="Submit" value="" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button>
 						</form>
 					</div>
 				</div>
@@ -167,28 +213,31 @@ Courses | Teacher's Portal
 
 		<!-- Profile Image -->
 		<div class="box">
-			<div class="box-body box-profile">
-				<h3 class="profile-username text-center">{{c.title}}</h3>
+			<div class="box-body box-profile" id="{{c.id}}ina">
+				<h3 class="profile-username text-center coursetitle">{{c.title}}</h3>
 
 				<ul class="list-group list-group-unbordered">
 					<li class="list-group-item">
-						<b>Course Code</b> <a class="pull-right">{{c.course_id}}</a>
+						<b>Course Code</b> <a class="pull-right courseid">{{c.course_id}}</a>
 					</li>
 
 					<li class="list-group-item">
-						<b>Year</b> <a class="pull-right">{{c.startdate}} - {{c.enddate}}</a>
+						<b>Year</b> <a class="pull-right"><span class="semesterc">{%if c.semester is 2%}Even{%else%}Odd{%endif%}</span> Semester : <span class="startdate">{{c.startdate}}</span> - <span class="enddate">{{c.enddate}}</span></a>
 					</li>
 				</ul>
 				<div class="row">
-					<div class="col-xs-2"></div>
-					<div class="col-xs-3">
-						<a href="#" class="btn btn-success btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+					<div class="col-xs-6">
+						<a href="{{c.url}}" class="btn btn-primary btn-block courseurl" target="_blank">Webpage</a>
 					</div>
-					<div class="col-xs-2"></div>
 					<div class="col-xs-3">
-						<a href="#" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></a>
+						<button href="#" class="btn btn-success btn-block" id="ina{{c.id}}" onclick="forminit($(this).attr('id')); " data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 					</div>
-					<div class="col-xs-2"></div>
+					<div class="col-xs-3">
+						<form method="POST" action="/portal/courses/delete/{{c.id}}">
+							{%csrf_token%}
+							<button type="Submit" value="" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button>
+						</form>
+					</div>
 				</div>
 				<!-- /.box-body -->
 			</div>
@@ -203,4 +252,27 @@ Courses | Teacher's Portal
 
 {%endblock%}
 {%block customsc%}
+<script type="text/javascript">
+	function forminit(ide){
+		var x  = ide.slice(3);
+		var ids="";
+		if(ide.slice(0,3)==="act"){
+			var ids=x+'act';
+			$('.edit-form #id_active').prop('checked', true);
+		}
+		else{
+			var ids=x+'ina';
+			$('.edit-form #id_active').prop('checked', false);
+		}
+		$('.edit-form #id_course_id').val($('#'+ids+' .courseid')[0].innerHTML);
+		$('.edit-form #id_title').val($('#'+ids+' .coursetitle')[0].innerHTML);
+		$('.edit-form #id_startdate').val($('#'+ids+' .startdate')[0].innerHTML);
+		$('.edit-form #id_enddate').val($('#'+ids+' .enddate')[0].innerHTML);
+		$('.edit-form #id_url').val($('#'+ids+' .courseurl')[0]['href']);
+		if($('#'+ids+' .semesterc')[0].innerHTML==="Even")
+			$('.edit-form #id_semester').val(2);
+		else $('.edit-form #id_semester').val(1);
+		$('#editformsrc').attr('action','/portal/courses/edit/'+x);
+	}
+</script>
 {%endblock%}

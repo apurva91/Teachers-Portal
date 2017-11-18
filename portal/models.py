@@ -42,12 +42,18 @@ class Education(models.Model):
     institute=models.CharField(max_length=200)
     year=models.IntegerField()
 
+ODD_EVEN = (
+    (1, ("Odd")),
+    (2, ("Even"))
+)
+
 class Course(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     course_id=models.CharField(max_length=7)
     title=models.CharField(max_length=50)
-    startdate=models.DateField(blank=True)
-    enddate=models.DateField(blank=True)
+    startdate=models.CharField(max_length=4,blank=True)
+    enddate=models.CharField(max_length=4,blank=True)
+    semester = models.IntegerField(choices=ODD_EVEN, default=1)
     url=models.URLField(blank=True)
     active=models.BooleanField(default=True)
 
