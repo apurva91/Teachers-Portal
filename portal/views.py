@@ -44,6 +44,10 @@ def loginForm(request):
     else:
         return render(request, 'registration/login.html')
 
+
+def logoutForm(request):
+    logout(request)
+    return render(request, 'registration/logout.html')
 def adminForm(request):
     return render(request, 'portal/user.html')
 

@@ -15,6 +15,7 @@ urlpatterns = [
 	# url(r'^messagec/$',views.MsgCount, name='msgco'),
 	# url(r'^messages/(?P<reciever>([\wd._-])+)/refresh$',views.MsgRefresh, name='remsg'),
     url(r'^login/$', views.loginForm, name="loginF"),
+    url(r'^logout/$', views.logoutForm, name="logoutForm"),
     url(r'^profile/$', views.update_profile, name="profile"),
     url(r'^$', views.dashboard, name="dashboard"),
     url(r'^forgot/$', auth_views.password_reset, name='password_reset'),
