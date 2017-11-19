@@ -17,7 +17,7 @@
 	{%load static%}
  	<!-- CSS
    ================================================== -->
-   <link rel="stylesheet" href="{%static 'Public/css/base.css'%}">  
+   <link rel="stylesheet" href="{%static 'Public/css/base1.css'%}">  
    <link rel="stylesheet" href="{%static 'Public/css/main1.css'%}">
    <link rel="stylesheet" href="{%static 'Public/css/vendor.css'%}">     
 
@@ -271,57 +271,31 @@
 
    				<div class="timeline-block">
 
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Master Degree</h3>
-	   					<p>July 2015 - Present</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>University of Life</h4>
-	   					<p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
 	   			<div class="timeline-block">
 
+	   				{%for e in education%}
+	   				<div class="timeline-block">
+
 	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
+	   					<i class="fa fa-graduation-cap"></i>
 	   				</div>
 
 	   				<div class="timeline-header">
-	   					<h3>Bachelor Degree</h3>
-	   					<p>July 2014 - June 2015</p>
+	   					<h3>{{e.degree}}</h3>
+	   					<p>{{e.year}}</p>
 	   				</div>
 
 	   				<div class="timeline-content">
-	   					<h4>State Design University</h4>
-	   					<p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi incididunt.</p>
+	   					<h4>{{e.institute}}</h4>
+	   					<p>{{e.desc}}</p>
 	   				</div>
 
-	   			</div> <!-- /timeline-block -->
+	   			</div>	
+	   				{%endfor%}
 
-	   			<div class="timeline-block">
+	   			
 
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Bachelor Degree</h3>
-	   					<p>May 2013 - June 2014</p>
-	   				</div>
-
-	   				<div class="timeline-content">
-	   					<h4>Design College</h4>
-	   					<p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi incididunt.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
+	   			
 
    			</div> <!-- /timeline-wrap -->   			
 
@@ -339,10 +313,10 @@
 		<div class="row section-intro">
    		<div class="col-twelve">
 
-   			<h5>Portfolio</h5>
-   			<h1>Check Out Some of My Works.</h1>
+   			<h5>Know More</h5>
+   			<h1></h1>
 
-   			<p class="lead">Lorem ipsum Do commodo in proident enim in dolor cupidatat adipisicing dolore officia nisi aliqua incididunt Ut veniam lorem ipsum Consectetur ut in in eu do.</p>
+   			<p class="lead"></p>
 
    		</div>   		
    	</div> <!-- /section-intro--> 
@@ -360,9 +334,9 @@
 	                  <a href="#modal-01" class="overlay">	                  	           
 	                     <div class="folio-item-table">
 	                     	<div class="folio-item-cell">
-		     					       <h3 class="folio-title">Liberty</h3>	     					    
+		     					       <h3 class="folio-title">Publications</h3>	     					    
 		     					    	 <span class="folio-types">
-		     					       	  Graphic Design
+		     					       	  Publications
 		     					       </span>
 		     					   </div>	                      	
 	                     </div>                    
@@ -376,9 +350,9 @@
 	               	<a href="#modal-02" class="overlay">              		                  
 	                     <div class="folio-item-table">
 	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Shutterbug</h3>	     					    
+	                     		<h3 class="folio-title">Projects</h3>	     					    
 		     					    	<span class="folio-types">
-		     					       	  Web Design
+		     					       	  Projects
 		     					      </span>		     		
 		     					   </div> 	                      	
 	                     </div>                    
@@ -392,9 +366,9 @@
 	                  <a href="#modal-03" class="overlay">             		                  
 	                     <div class="folio-item-table">
 	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Clouds</h3>	     					    
+	                     		<h3 class="folio-title">Projects</h3>	     					    
 		     					    	<span class="folio-types">
-		     					       	  Web Design
+		     					       	 Projects
 		     					      </span>		     		
 		     					   </div> 	                      	
 	                     </div>                    
@@ -408,9 +382,9 @@
 	                  <a href="#modal-04" class="overlay">                  	                 
 	                     <div class="folio-item-table">
 	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Beetle</h3>	     					    
+	                     		<h3 class="folio-title">Students</h3>	     					    
 		     					    	<span class="folio-types">
-		     					       	  Branding
+		     					       	  Students
 		     					      </span>		     		
 		     					   </div>  	                      	
 	                     </div>                    
@@ -424,9 +398,9 @@
 	                  <a href="#modal-05" class="overlay">             		                  
 	                     <div class="folio-item-table">
 	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Lighthouse</h3>	     					    
+	                     		<h3 class="folio-title">Achievements</h3>	     					    
 		     					    	<span class="folio-types">
-		     					       	  Web Development
+		     					       	  Achievements
 		     					      </span>		     		
 		     					   </div> 	                      	
 	                     </div>                    
@@ -440,9 +414,9 @@
 	                  <a href="#modal-06" class="overlay">
 	                     <div class="folio-item-table">
 	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Salad</h3>	     					    
+	                     		<h3 class="folio-title">Others</h3>	     					    
 		     					    	<span class="folio-types">
-		     					       	  Branding
+		     					       	  Others
 		     					      </span>		     		
 		     					   </div>	                      	
 	                     </div>                    
@@ -622,9 +596,9 @@
    		<div class="col-twelve">
 
    			<h5>Services</h5>
-   			<h1>What Can I Do For You?</h1>
+   			<h1>Research Interests</h1>
 
-   			<p class="lead">Lorem ipsum Do commodo in proident enim in dolor cupidatat adipisicing dolore officia nisi aliqua incididunt Ut veniam lorem ipsum Consectetur ut in in eu do.</p>
+   			<p class="lead"></p>
 
    		</div>   		
    	</div> <!-- /section-intro -->
@@ -639,9 +613,9 @@
 
 	            <div class="service-content">	
 
-	            	 <h3>Webdesign</h3>
+	            	 <h3>Data Mining</h3>
 
-		            <p class="desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+		            <p class="desc">Data mining is the computing process of discovering patterns in large data sets involving methods at the intersection of machine learning, statistics, and database systems.
 	         		</p>
 	         		
 	         	</div> 	         	 
@@ -654,9 +628,9 @@
 
 	            <div class="service-content">	
 
-	            	<h3>Web Development</h3>  
+	            	<h3>Embedded Systems</h3>  
 
-		            <p class="desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+		            <p class="desc">An embedded system is a computer system with a dedicated function within a larger mechanical or electrical system, often with real-time computing constraints.
 	         		</p>
 
 	            </div>	                          
@@ -746,7 +720,7 @@
 						</div>
 
 						<h3 class="stat-count">
-							30
+							{{user.courses}}
 						</h3>
 
 						<h5 class="stat-title">
@@ -916,9 +890,9 @@
    			<h5>Where to find me</h5>
 
    			<p>
-            1600 Amphitheatre Parkway<br>
-            Mountain View, CA<br>
-            94043 US
+            {{user.office}}<br>
+            
+            
             </p>
 
    		</div>
@@ -931,8 +905,8 @@
 
    			<h5>Email Me At</h5>
 
-   			<p>someone@kardswebsite.com<br>
-			   	info@kardswebsite.com			     
+   			<p>{{user.user.email}}<br>
+			   				     
 			   </p>
 
    		</div>
@@ -967,18 +941,15 @@
 
      			<ul class="footer-social">        
 			      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-			      <li><a href="#"><i class="fa fa-behance"></i></a></li>
-			      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-			      <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-			      <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+			      
 			   </ul> 
 	      		
 	      </div>
 
       	<div class="col-six tab-full">
 	      	<div class="copyright">
-		        	<span>© Copyright Kards 2016.</span> 
-		        	<span>Design by <a href="http://www.styleshout.com/">styleshout</a></span>	         	
+		        	<span>© Copyright IIT Guwahati</span> 
+		        	<span>Design by <a href="http://www.styleshout.com/">Abhinav</a></span>	         	
 		         </div>		                  
 	      	</div>
 
