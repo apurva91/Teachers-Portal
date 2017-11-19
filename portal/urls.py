@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'education/edit/(?P<id>[0-9]+)$', views.edit_education, name="edit_education"),
     url(r'education/delete/(?P<id>[0-9]+)$', views.delete_education, name="delete_education"),
     url(r'^upload/$', views.simple_upload, name="upload_file"),
+    url(r'^submitlink/$', views.submitLink, name="submit_file"),
 ]
 
 if settings.DEBUG:

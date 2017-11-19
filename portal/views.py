@@ -2,19 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
-
-
-# Create your views here.
-import json
-import urllib
-from django.conf import settings
+import json, urllib,re
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Profile, Course, Education
-from .forms import CoursePageForm, UserForm, ProfileForm, EducationForm, CourseForm
+from .forms import *
+from .models import *
 from django.db.models import Q
-from .forms import UploadFileForm
-# from somewhere import handle_uploaded_file
 
 def loginForm(request):
     if request.method == 'POST':
@@ -127,6 +120,52 @@ def list_all_courses(request):
     incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
     return render(request, 'portal/courses.html', {'form': form, 'course':course, 'incourse':incourse,})
 
+def Extractor(url,user_id):
+    response = urllib.request.urlopen(url)
+    content = response.read()
+    content=str(content)
+    # content = content.encode("utf8")
+    x=""
+    y=""
+    for item in content.split("<!-- END COURSES OFFERED SECTION-->"):
+        if '<!-- START COURSES OFFERED SECTION -->' in item:
+            x+=  item [item.find('<!-- START COURSES OFFERED SECTION -->')+len('<!-- START COURSES OFFERED SECTION -->') : ]
+    lis=[]
+    for item in x.split("</li>"):
+        if('<li>') in item:
+
+            final = item [item.find('<li>')+len('<li>') : ]
+            mylist = re.split(' \xe2\x8b\x84 | &diam; | : |-',final)
+            lis.append(mylist)
+    user = Profile.objects.get(id=user_id)
+    for idx,item in enumerate(lis):
+        course = Course()
+        course.user=user.user
+        course.startdate=item[0].replace(" ","")
+        course.enddate=item[1]
+        if item[2][0]=="E":
+            course.semester=2
+        else:
+            course.semester=1
+        course.course_id=item[3]
+        course.title=item[4].replace("&amp;","&")
+        course.active=0
+        course.url="#"
+        user.courses=user.courses+1
+        user.save()
+        course.save()
+
+def submitLink(request):
+    if request.method == 'POST':
+        form = LinkForm(request.POST)
+        if form.is_valid:
+            x = request.POST['link']
+            Extractor(x,request.user.id)
+            return redirect('/portal/')
+    else:
+        form = LinkForm()
+        return render(request,'portal/submit.html',{'form':form})
+
 def edit_course(request,id):
     if request.method == 'POST':
         form=CourseForm(request.POST)
@@ -141,6 +180,12 @@ def edit_course(request,id):
             course.enddate=course1.enddate
             course.semester=course1.semester
             course.url=course1.url
+            tempuser = Profile.objects.get(user=request.user)
+            if course.active and not course1.active:
+                tempuser.active_courses = tempuser.active_courses - 1
+            elif course1.active and not course.active: 
+                tempuser.active_courses = tempuser.active_courses + 1
+            tempuser.save()
             course.active=course1.active
             course.save()
             return redirect('/portal/courses/')

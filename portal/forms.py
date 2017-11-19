@@ -88,3 +88,8 @@ class CourseForm(forms.ModelForm):
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     file = forms.FileField()
+
+class LinkForm(forms.Form):
+    link=forms.URLField(required=True)
+    class Meta:
+        fields=('link')

@@ -1,0 +1,15 @@
+{%extends 'portal/base.html'%}
+{%block title%}
+Submit Link
+{%endblock%}
+{%block head%}
+{%endblock%}
+{%block content%}
+<form method="POST">
+{{form}}
+{%csrf_token%}
+<input type="Submit" name="Submit">
+</form>
+{%endblock%}
+{%block customsc%}
+{%endblock%}
