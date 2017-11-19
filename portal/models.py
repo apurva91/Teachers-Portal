@@ -56,7 +56,6 @@ class Course(models.Model):
     semester = models.IntegerField(choices=ODD_EVEN, default=1)
     url=models.URLField(blank=True)
     active=models.BooleanField(default=True)
-    
 
     def __str__(self):
         return self.title

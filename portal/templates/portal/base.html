@@ -4,7 +4,7 @@
   {%load static%}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
+
   <link rel="icon" type="image/ico" href="{% static 'Login/img/favicon.ico'%}">
   <title>{%block title%}Teacher's Portal{%endblock%}</title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -234,6 +234,12 @@
           </a>
         </li>
 
+        <li>
+          <a href="/portal/education">
+            <i class="fa fa-book"></i> <span>Education</span>
+          </a>
+        </li>
+
         <li class="treeview active">
           <a href="#">
             <i class="fa fa-folder"></i> <span>Examples</span>
@@ -332,8 +338,15 @@
     -->
   </section>
 
+<<<<<<< HEAD
   <!-- Main content -->
   <section class="content">
+=======
+    <!-- Main content -->
+    <section class="content">
+
+        {%block content%}{%endblock%}
+>>>>>>> f5f4395d310f353e9239d8efe032a0c45680d67d
 
     {%block content%}{%endblock%}
 
@@ -564,7 +577,7 @@
   $(document).ready(function () {
     $('.sidebar-menu').tree()
   })
-</script> 
+</script>
 {%block customsc%}
 {%endblock%}
 </body>
