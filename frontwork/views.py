@@ -14,6 +14,9 @@ from django.contrib.auth.models import User
 def index(request):
 	return HttpResponse("Hello")
 
+def faculty(request):
+	users = Profile.objects.all()
+	return render(request,'faculty.html',{'users':users})
 # class IndexView(generic.ListView):
 #     model = Profile
 #     template_name = 'index.html'
