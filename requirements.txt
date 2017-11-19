@@ -1,3 +1,5 @@
 django
 django-mailbox
 django-simple-captcha
+django-ckeditor
+requests

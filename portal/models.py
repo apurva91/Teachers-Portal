@@ -23,6 +23,7 @@ class Profile(models.Model):
     research = models.CharField(max_length=500, blank=True)
     courses=models.IntegerField(default=0)
     active_courses=models.IntegerField(default=0)
+    projects=models.IntegerField(default=0)
     def __str__(self):
         return self.user.username
 
@@ -68,3 +69,15 @@ class CoursePage(models.Model):
 class CourseSubPage(models.Model):
     subpage=models.ForeignKey(CoursePage, on_delete=models.CASCADE)
     #content=HTMLField()
+
+class Project(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    title=models.CharField(max_length=100)
+    pi=models.CharField(max_length=50)
+    copi=models.CharField(max_length=100)
+    funding=models.CharField(max_length=50)
+    startyear=models.IntegerField()
+    endyear=models.IntegerField()
+
+    def __str__(self):
+        return self.title

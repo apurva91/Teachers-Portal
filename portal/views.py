@@ -183,7 +183,7 @@ def edit_course(request,id):
             tempuser = Profile.objects.get(user=request.user)
             if course.active and not course1.active:
                 tempuser.active_courses = tempuser.active_courses - 1
-            elif course1.active and not course.active: 
+            elif course1.active and not course.active:
                 tempuser.active_courses = tempuser.active_courses + 1
             tempuser.save()
             course.active=course1.active
@@ -247,6 +247,56 @@ def delete_education(request,id):
 
         return redirect('/portal/education/')
     return redirect('/portal/education/')
+
+def list_all_projects(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user=request.user
+            tempuser = Profile.objects.get(user=request.user)
+            tempuser.projects = tempuser.projects +1
+            tempuser.save()
+            project.save()
+            return redirect('/portal/projects/')
+    else:
+        form = ProjectForm()
+    projects = Project.objects.filter(Q(user=request.user)).order_by('-endyear')
+    # incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
+    return render(request, 'portal/project.html', {'form': form, 'projects':projects})
+
+def edit_project(request,id):
+    if request.method == 'POST':
+        form=ProjectForm(request.POST)
+        if form.is_valid():
+            project = Project.objects.get(id=id)
+            if project.user.id != request.user.id:
+                return HttpResponse('404'+str(request.user)+str(project.user))
+            project1=form.save(commit=False)
+            project.title=project1.title
+            project.pi=project1.pi
+            project.copi=project1.copi
+            project.funding=project1.funding
+            project.startyear=project1.startyear
+            project.endyear=project1.endyear
+            project.save()
+            return redirect('/portal/projects/')
+    return redirect('/portal/projects/')
+
+def delete_project(request,id):
+    if request.method == 'POST':
+        project = Project.objects.get(id=id)
+        if project.user != request.user:
+            return HttpResponse('Dont Try To Mess With The System')
+        # if projects.active:
+        #     tempuser.active_projects = tempuser.active_projects -1
+        tempuser = Profile.objects.get(user=request.user)
+        tempuser.projects = tempuser.projects -1
+        tempuser.save()
+        project.delete()
+
+        return redirect('/portal/projects/')
+    return redirect('/portal/projects/')
 
 def simple_upload(request):
     if request.method == 'POST' and request.FILES['myfile']:

@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.files.images import get_image_dimensions
 from django.forms import ModelForm
-from .models import * 
+from .models import *
 
 
 # class PostForm(ModelForm):
@@ -68,7 +68,7 @@ class ProfileForm(ModelForm):
             """
             pass
 
-        return avatar    
+        return avatar
 
 class CoursePageForm(ModelForm):
     class Meta:
@@ -79,6 +79,11 @@ class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
         fields = ('degree','desc','institute','year')
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ('title','pi','copi','funding','startyear','endyear')
 
 class CourseForm(forms.ModelForm):
     class Meta:
