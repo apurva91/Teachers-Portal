@@ -12,7 +12,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 
 def index(request):
-	return HttpResponse("Hello")
+	return render(request, 'index.html')
 
 def faculty(request):
 	users = Profile.objects.all()

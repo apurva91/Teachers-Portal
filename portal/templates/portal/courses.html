@@ -4,6 +4,11 @@
 Courses | Teacher's Portal
 {%endblock%}
 {%block head%}
+<style type="text/css">
+	.coursetitle{
+		height:46px;
+	}
+</style>
 {%endblock%}
 {%block title_inpage%} Courses &nbsp;&nbsp;<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><big>+</big> Add New</button> {%endblock%}
 {%block content%}
@@ -265,7 +270,7 @@ Courses | Teacher's Portal
 			$('.edit-form #id_active').prop('checked', false);
 		}
 		$('.edit-form #id_course_id').val($('#'+ids+' .courseid')[0].innerHTML);
-		$('.edit-form #id_title').val($('#'+ids+' .coursetitle')[0].innerHTML);
+		$('.edit-form #id_title').val($('#'+ids+' .coursetitle')[0].innerHTML.replace("&amp;","&"));
 		$('.edit-form #id_startdate').val($('#'+ids+' .startdate')[0].innerHTML);
 		$('.edit-form #id_enddate').val($('#'+ids+' .enddate')[0].innerHTML);
 		$('.edit-form #id_url').val($('#'+ids+' .courseurl')[0]['href']);

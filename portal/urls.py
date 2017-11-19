@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'courses/edit/(?P<id>[0-9]+)$', views.edit_course, name="edit_course"),
     url(r'courses/delete/(?P<id>[0-9]+)$', views.delete_course, name="delete_course"),
     url(r'^upload/$', views.simple_upload, name="upload_file"),
+    url(r'^submitlink/$', views.submitLink, name="submit_file"),
 ]
