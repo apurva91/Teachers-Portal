@@ -6,7 +6,7 @@ import urllib
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from portal.models import Profile
+from portal.models import Profile,Course
 from django.views import generic
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -29,4 +29,7 @@ def index(request):
 
 def teacher(request,username):
 	user = Profile.objects.get(user__username=username)
-	return render(request,'teacher.html',{'user':user})
+
+	course=Course.objects.filter(Q(active=True) & Q(user=user.id)).order_by('-semester')
+
+	return render(request,'teacher.html',{'user':user,'course':course})

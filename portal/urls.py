@@ -31,3 +31,6 @@ urlpatterns = [
     url(r'courses/delete/(?P<id>[0-9]+)$', views.delete_course, name="delete_course"),
     url(r'^upload/$', views.simple_upload, name="upload_file"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
