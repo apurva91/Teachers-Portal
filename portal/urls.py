@@ -29,6 +29,9 @@ urlpatterns = [
     url(r'courses/$', views.list_all_courses, name="list_all_courses"),
     url(r'courses/edit/(?P<id>[0-9]+)$', views.edit_course, name="edit_course"),
     url(r'courses/delete/(?P<id>[0-9]+)$', views.delete_course, name="delete_course"),
+    url(r'education/$', views.list_all_education, name="list_all_education"),
+    url(r'education/edit/(?P<id>[0-9]+)$', views.edit_education, name="edit_education"),
+    url(r'education/delete/(?P<id>[0-9]+)$', views.delete_education, name="delete_education"),
     url(r'^upload/$', views.simple_upload, name="upload_file"),
 ]
 

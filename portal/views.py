@@ -10,7 +10,7 @@ import urllib
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Profile, Course
+from .models import Profile, Course, Education
 from .forms import CoursePageForm, UserForm, ProfileForm, EducationForm, CourseForm
 from django.db.models import Q
 from .forms import UploadFileForm
@@ -99,14 +99,14 @@ def dashboard(request):
     # return render(request,'portal/dash.html',{'form':form,})
     return render(request,'portal/dash.html')
 
-def addEducation(request):
-    if request.method=='POST':
-        form = EducationForm(request.POST)
-        if form.is_valid:
-            eduform=form.save(commit=False)
-            eduform.user=request.user
-            eduform.save()
-            return redirect('/portal/profile')
+# def addEducation(request):
+#     if request.method=='POST':
+#         form = EducationForm(request.POST)
+#         if form.is_valid:
+#             eduform=form.save(commit=False)
+#             eduform.user=request.user
+#             eduform.save()
+#             return redirect('/portal/profile')
 
 def list_all_courses(request):
     if request.method == 'POST':
@@ -161,6 +161,48 @@ def delete_course(request,id):
         return redirect('/portal/courses/')
     return redirect('/portal/courses/')
 
+def list_all_education(request):
+    if request.method == 'POST':
+        form = EducationForm(request.POST)
+        if form.is_valid():
+            education = form.save(commit=False)
+            education.user=request.user
+            education.save()
+            return redirect('/portal/education/')
+    else:
+        form = EducationForm()
+    education = Education.objects.filter(Q(user=request.user)).order_by('-year')
+    # incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
+    return render(request, 'portal/education.html', {'form': form, 'education':education})
+
+def edit_education(request,id):
+    if request.method == 'POST':
+        form=EducationForm(request.POST)
+        if form.is_valid():
+            education = Education.objects.get(id=id)
+            if education.user.id != request.user.id:
+                return HttpResponse('404'+str(request.user)+str(education.user))
+            education1=form.save(commit=False)
+            education.degree=education1.degree
+            education.desc=education1.desc
+            education.institute=education1.institute
+            education.year=education1.year
+            education.save()
+            return redirect('/portal/education/')
+    return redirect('/portal/education/')
+
+def delete_education(request,id):
+    if request.method == 'POST':
+        education = Education.objects.get(id=id)
+        if education.user != request.user:
+            return HttpResponse('Dont Try To Mess With The System')
+        # if education.active:
+        #     tempuser.active_education = tempuser.active_education -1
+        education.delete()
+
+        return redirect('/portal/education/')
+    return redirect('/portal/education/')
+
 def simple_upload(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
@@ -171,6 +213,3 @@ def simple_upload(request):
             'uploaded_file_url': uploaded_file_url
         })
     return render(request, 'portal/upload.html')
-
-
-
