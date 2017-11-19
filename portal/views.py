@@ -51,6 +51,7 @@ def loginForm(request):
 def logoutForm(request):
     logout(request)
     return render(request, 'registration/logout.html')
+
 def adminForm(request):
     return render(request, 'portal/user.html')
 
@@ -141,13 +142,38 @@ def Extract_Profile(content,user_id):
     user.phone=lis[2]
     user.save()
 
+def Extract_Edu(content,user_id):
+    x=""
+    for item in content.split("<!-- END ACADEMIC PROFILE SECTION -->"):
+        if '<!-- START ACADEMIC PROFILE SECTION -->' in item:
+            x+=  item [item.find('<!-- START ACADEMIC PROFILE SECTION -->')+len('<!-- START ACADEMIC PROFILE SECTION -->') : ]
+    pub=[]
+    for item in x.split("</p>"):
+        if '<p align="justify">' in item:
+            pub.append(item [item.find('<p align="justify">')+len('<p align="justify">') : ])
+    user = User.objects.get(id=user_id)
+    for item in pub:
+        edu = Education()
+        edu.user=user
+        for item2 in item.split("</strong>"):
+            if '<strong>' in item2:
+                edu.degree=item2 [item2.find('<strong>')+len('<strong>') : ]
+        for item2 in item.split(","):
+            if '<br />' in item2:
+                x = item2 [item2.find('<br />')+len('<br />') : ].replace("\n","").replace("\t","")
+                edu.desc=str(x)[8:]
+        edu.institute= item.split(",",1)[-1][1:-7]
+        edu.year=int(item.split(",")[-1][1:-1])
+        edu.save()
+
 def Extractor(url,user_id):
     response = urllib.request.urlopen(url)
     content = response.read()
     content=str(content)
     # content = content.encode("utf8")
     # Extract_Course(content,user_id)
-    Extract_Profile(content,user_id)
+    # Extract_Profile(content,user_id)
+    Extract_Edu(content,user_id)
 
 
 def submitLink(request):
