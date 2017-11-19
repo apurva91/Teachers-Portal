@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'frontwork',
     'ckeditor',
     'ckeditor_uploader',
+    'requests',
 ]
 
 MIDDLEWARE = [

@@ -8,6 +8,9 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import *
 from .models import *
 from django.db.models import Q
+import requests
+import tempfile, os
+from django.core import files
 
 def loginForm(request):
     if request.method == 'POST':
@@ -77,29 +80,7 @@ def update_profile(request):
     })
 
 def dashboard(request):
-    # # if not request.user.is_authenticated:
-    # #     return redirect('/portal/login')
-    # if request.method=='POST':
-    #     form = CoursePageForm(request.POST,instance=user_data)
-
-    #     if form.is_valid():
-    #         user_data = form.save()
-    #         user_data.save()
-    #         return redirect('/portal/profile/'+str(user))
-    # else:
-    #     form = CoursePageForm()
-    #     return render(request, 'portal/dash.html', {'form':form})
-    # return render(request,'portal/dash.html',{'form':form,})
     return render(request,'portal/dash.html')
-
-# def addEducation(request):
-#     if request.method=='POST':
-#         form = EducationForm(request.POST)
-#         if form.is_valid:
-#             eduform=form.save(commit=False)
-#             eduform.user=request.user
-#             eduform.save()
-#             return redirect('/portal/profile')
 
 def list_all_courses(request):
     if request.method == 'POST':
@@ -120,46 +101,61 @@ def list_all_courses(request):
     incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
     return render(request, 'portal/courses.html', {'form': form, 'course':course, 'incourse':incourse,})
 
+def Extract_Profile(content,user_id):
+    x=""
+    for item in content.split("<!-- END PROFILE INFO SECTION -->"):
+        if '<!-- START PROFILE INFO SECTION -->' in item:
+            x+=  item [item.find('<!-- START PROFILE INFO SECTION -->')+len('<!-- START PROFILE INFO SECTION -->') : ]
+    lis=[]
+
+    for item in x.split("\" alt=\""):
+        if '<img src=\"' in item:
+            lis.append("iitg.ernet.in"+ item [item.find('<img src=\"')+len('<img src=\"') : ])
+
+    for item in re.split('<br />|</p>',x):
+        if ':' in item:
+            lis.append(item [item.find(':')+len(':') : ])
+    lis.pop()
+
+    for idx,item in enumerate(x.split("</div>")):
+        if '<p>' in item:
+            if idx==1:
+                for idx,item2 in enumerate(item.split("</label>")):
+                    if '<label>' in item2:
+                        lis.append(item2 [item2.find('<label>')+len('<label>') : ])
+                
+                y = (item [item.find('<p>')+len('<p>') : ])
+                v = re.split("<br />|,",y)
+                lis.append(v[0])
+                lis.append(v[1])
+    user = Profile.objects.get(id=user_id)
+    # if lis[0][0]=='h' and lis[0][1]=='t':
+    #     user.avatar=lis[0]
+    # else:
+    #     user.avatar="http://"+lis[0]
+    user.office=lis[1]+", CSE Department, IIT Guwahati"
+    user.residence="Qtr No. " + lis[4]+", CSE Department, IIT Guwahati"
+    user.webmail=lis[3].replace(" ","")
+    user.name=lis[6]
+    user.designation=lis[7]
+    user.phone=lis[2]
+    user.save()
+
 def Extractor(url,user_id):
     response = urllib.request.urlopen(url)
     content = response.read()
     content=str(content)
     # content = content.encode("utf8")
-    x=""
-    y=""
-    for item in content.split("<!-- END COURSES OFFERED SECTION-->"):
-        if '<!-- START COURSES OFFERED SECTION -->' in item:
-            x+=  item [item.find('<!-- START COURSES OFFERED SECTION -->')+len('<!-- START COURSES OFFERED SECTION -->') : ]
-    lis=[]
-    for item in x.split("</li>"):
-        if('<li>') in item:
+    # Extract_Course(content,user_id)
+    Extract_Profile(content,user_id)
 
-            final = item [item.find('<li>')+len('<li>') : ]
-            mylist = re.split(' \xe2\x8b\x84 | &diam; | : |-',final)
-            lis.append(mylist)
-    user = Profile.objects.get(id=user_id)
-    for idx,item in enumerate(lis):
-        course = Course()
-        course.user=user.user
-        course.startdate=item[0].replace(" ","")
-        course.enddate=item[1]
-        if item[2][0]=="E":
-            course.semester=2
-        else:
-            course.semester=1
-        course.course_id=item[3]
-        course.title=item[4].replace("&amp;","&")
-        course.active=0
-        course.url="#"
-        user.courses=user.courses+1
-        user.save()
-        course.save()
 
 def submitLink(request):
     if request.method == 'POST':
         form = LinkForm(request.POST)
         if form.is_valid:
             x = request.POST['link']
+            # return HttpResponse(Extractor(x,request.user.id))
             Extractor(x,request.user.id)
             return redirect('/portal/')
     else:
