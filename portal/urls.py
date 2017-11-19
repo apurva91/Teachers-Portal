@@ -26,6 +26,9 @@ urlpatterns = [
     url(r'education/$', views.list_all_education, name="list_all_education"),
     url(r'education/edit/(?P<id>[0-9]+)$', views.edit_education, name="edit_education"),
     url(r'education/delete/(?P<id>[0-9]+)$', views.delete_education, name="delete_education"),
+    url(r'projects/$', views.list_all_projects, name="list_all_projects"),
+    url(r'projects/edit/(?P<id>[0-9]+)$', views.edit_project, name="edit_project"),
+    url(r'projects/delete/(?P<id>[0-9]+)$', views.delete_project, name="delete_project"),
     url(r'^upload/$', views.simple_upload, name="upload_file"),
     url(r'^submitlink/$', views.submitLink, name="submit_file"),
 ]

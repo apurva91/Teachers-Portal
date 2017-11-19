@@ -1,0 +1,210 @@
+{%extends 'portal/base.html'%}
+{%load static%}
+{%block title%}
+Projects | Teacher's Portal
+{%endblock%}
+{%block head%}
+{%endblock%}
+{%block title_inpage%} My Projects &nbsp;&nbsp;<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><big>+</big> Add New</button> {%endblock%}
+{%block content%}
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">New Project</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+
+					<form method="POST">
+						<div class="row">
+							<div class="col-md-3 col-xs-12">
+								<div class="form-group">
+									<label for="id_title">Project Title</label> <input type="text" name="title" class="form-control" maxlength="100" required id="id_title"/>
+								</div>
+							</div>
+
+							<div class="col-md-9 col-xs-12">
+								<div class="form-group">
+									<label for="id_pi">Project Incharge</label> <input type="text" class="form-control" name="pi" maxlength="50" required id="copi" />
+
+								</div>
+							</div>
+
+							<div class="col-md-4 col-xs-12">
+								<div class="form-group">
+									<label for="id_copi">Co-Incharge(s)</label><input type="text" name="copi" maxlength="100" id="id_copi" class="form-control" placeholder="(if any)" />
+								</div>
+							</div>
+
+							<div class="col-md-4 col-xs-12">
+								<div class="form-group">
+									<label for="id_funding">Funding Agency</label><input type="text" name="funding" maxlength="50" id="id_funding" class="form-control" />
+								</div>
+							</div>
+
+              <div class="col-md-4 col-xs-12">
+								<div class="form-group">
+									<label for="id_startyear">Start Year</label><input type="text" name="startyear" maxlength="4" id="id_startyear" class="form-control" placeholder="YYYY" />
+								</div>
+							</div>
+
+              <div class="col-md-4 col-xs-12">
+								<div class="form-group">
+									<label for="id_endyear">End Year</label><input type="text" name="endyear" maxlength="4" id="id_endyear" class="form-control" placeholder="YYYY" />
+								</div>
+							</div>
+
+							{%csrf_token%}
+						</div>
+						<input type="Submit" class="btn btn-primary" name="Submit">
+					</form>
+
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="editModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Project</h4>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="editformsrc" action="/portal/projects/edit/1">
+					<div class="row edit-form">
+						<div class="col-md-3 col-xs-12">
+							<div class="form-group">
+								<label for="id_title">Project Title</label> <input type="text" name="title" class="form-control" maxlength="100" required id="id_title"/>
+							</div>
+						</div>
+
+						<div class="col-md-9 col-xs-12">
+							<div class="form-group">
+								<label for="id_pi">Project Incharge</label> <input type="text" class="form-control" name="pi" maxlength="50" required id="id_pi" />
+							</div>
+						</div>
+
+            <div class="col-md-9 col-xs-12">
+              <div class="form-group">
+                <label for="id_copi">Co-incharge(s)</label> <input type="text" class="form-control" name="copi" maxlength="50" required id="id_copi" />
+              </div>
+            </div>
+
+						<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="id_funding">Funding Agency</label><input type="text" name="funding" maxlength="50" id="id_funding" class="form-control" />
+							</div>
+						</div>
+
+						<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="id_startyear">Start Year</label><input type="text" name="startyear" maxlength="4" id="id_startyear" class="form-control" placeholder="YYYY" />
+							</div>
+						</div>
+
+            <div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="id_endyear">End Year</label><input type="text" name="endyear" maxlength="4" id="id_endyear" class="form-control" placeholder="YYYY" />
+							</div>
+						</div>
+
+						{%csrf_token%}
+					</div>
+					<input type="Submit" class="btn btn-primary" name="Submit">
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<h3>Completed Projects</h3>
+<div class="row">
+	{%for c in projects%}
+	<div class="col-md-4">
+
+		<!-- Profile Image -->
+		<div class="box box-primary">
+			<div class="box-body box-profile" id="{{c.id}}act">
+				<h3 class="profile-username text-center ptitle">{{c.title}}</h3>
+
+				<ul class="list-group list-group-unbordered">
+					<li class="list-group-item">
+						<b>Project Incharge</b> <a class="pull-right ppi">{{c.pi}}</a>
+					</li>
+					<li class="list-group-item">
+						<b>Co-Incharge</b> <a class="pull-right pcopi">{{c.copi}}</a>
+					</li>
+					<li class="list-group-item">
+						<b>Funding</b> <a class="pull-right pfunding">{{c.funding}}</a>
+					</li>
+          <li class="list-group-item">
+						<b>Start Year</b> <a class="pull-right pstartyear">{{c.startyear}}</a>
+					</li>
+          <li class="list-group-item">
+						<b>End Year</b> <a class="pull-right pendyear">{{c.endyear}}</a>
+					</li>
+				</ul>
+				<div class="row">
+
+					<div class="col-xs-3">
+						<button href="#" class="btn btn-success btn-block" id="act{{c.id}}" onclick="forminit($(this).attr('id')); " data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+					</div>
+					<div class="col-xs-3">
+						<form method="POST" action="/portal/projects/delete/{{c.id}}">
+							{%csrf_token%}
+							<button type="Submit" value="" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button>
+						</form>
+					</div>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+			<!-- /.box -->
+		</div>
+	</div>
+
+	{%endfor%}
+
+</div>
+
+
+{%endblock%}
+{%block customsc%}
+<script type="text/javascript">
+	function forminit(ide){
+		var x  = ide.slice(3);
+			var ids=x+'act';
+
+
+		$('.edit-form #id_title').val($('#'+ids+' .ptitle')[0].innerHTML);
+		$('.edit-form #id_pi').val($('#'+ids+' .ppi')[0].innerHTML);
+		$('.edit-form #id_copi').val($('#'+ids+' .pcopi')[0].innerHTML);
+		$('.edit-form #id_funding').val($('#'+ids+' .pfunding')[0].innerHTML);
+    $('.edit-form #id_startyear').val($('#'+ids+' .pstartyear')[0].innerHTML);
+    $('.edit-form #id_endyear').val($('#'+ids+' .pendyear')[0].innerHTML);
+		$('#editformsrc').attr('action','/portal/projects/edit/'+x);
+	}
+</script>
+{%endblock%}
