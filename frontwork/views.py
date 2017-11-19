@@ -8,19 +8,25 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from portal.models import Profile
 from django.views import generic
+from django.db.models import Q
+from django.contrib.auth.models import User
 
 def index(request):
 	return HttpResponse("Hello")
 
-class IndexView(generic.ListView):
-    model = Profile
-    template_name = 'index.html'
-    context_object_name = 'all_items'
+# class IndexView(generic.ListView):
+#     model = Profile
+#     template_name = 'index.html'
+#     context_object_name = 'all_items'
 
 	# def get_queryset(self):
     #     return Profile.objects.all()
 
-def fac_home(request, pk):
-	fac = Profile.objects.get(pk=pk)
-	context = {'fac' : fac}
-	return render(request, 'homepage.html', context)
+# def fac_home(request, pk):
+# 	fac = Profile.objects.get(pk=pk)
+# 	context = {'fac' : fac}
+# 	return render(request, 'homepage.html', context)
+
+def teacher(request,username):
+	user = Profile.objects.get(user__username=username)
+	return render(request,'teacher.html',{'user':user})
