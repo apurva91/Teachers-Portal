@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
 	# url(r'^$', views.Index , name='index'),
@@ -15,6 +17,7 @@ urlpatterns = [
 	# url(r'^messagec/$',views.MsgCount, name='msgco'),
 	# url(r'^messages/(?P<reciever>([\wd._-])+)/refresh$',views.MsgRefresh, name='remsg'),
     url(r'^login/$', views.loginForm, name="loginF"),
+    url(r'^logout/$', views.logoutForm, name="logoutForm"),
     url(r'^profile/$', views.update_profile, name="profile"),
     url(r'^$', views.dashboard, name="dashboard"),
     url(r'^forgot/$', auth_views.password_reset, name='password_reset'),
@@ -29,4 +32,8 @@ urlpatterns = [
     url(r'education/$', views.list_all_education, name="list_all_education"),
     url(r'education/edit/(?P<id>[0-9]+)$', views.edit_education, name="edit_education"),
     url(r'education/delete/(?P<id>[0-9]+)$', views.delete_education, name="delete_education"),
+    url(r'^upload/$', views.simple_upload, name="upload_file"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

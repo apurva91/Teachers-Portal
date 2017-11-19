@@ -15,7 +15,7 @@ urlpatterns = [
 	# url(r'^messager/$',views.MsgIRefresh, name='msgre'),
 	# url(r'^messagec/$',views.MsgCount, name='msgco'),
 	# url(r'^messages/(?P<reciever>([\wd._-])+)/refresh$',views.MsgRefresh, name='remsg'),
+    url(r'^professor/(?P<username>([\wd._-])+)/$', views.teacher, name="teacher"),
+    url(r'^faculty/$', views.faculty, name="faculty"),
     url(r'^$', views.index, name="index"),
-    url(r'^list$', views.IndexView.as_view(), name="list"),
-    url(r'list/(?P<pk>[0-9]+)/$',views.fac_home, name="fac_home"),
 ]

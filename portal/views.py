@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+
+
 # Create your views here.
 import json
 import urllib
@@ -9,6 +13,9 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Profile, Course, Education
 from .forms import CoursePageForm, UserForm, ProfileForm, EducationForm, CourseForm
 from django.db.models import Q
+from .forms import UploadFileForm
+# from somewhere import handle_uploaded_file
+
 def loginForm(request):
     if request.method == 'POST':
 
@@ -44,6 +51,10 @@ def loginForm(request):
     else:
         return render(request, 'registration/login.html')
 
+
+def logoutForm(request):
+    logout(request)
+    return render(request, 'registration/logout.html')
 def adminForm(request):
     return render(request, 'portal/user.html')
 
@@ -191,3 +202,14 @@ def delete_education(request,id):
 
         return redirect('/portal/education/')
     return redirect('/portal/education/')
+
+def simple_upload(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'portal/upload.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    return render(request, 'portal/upload.html')

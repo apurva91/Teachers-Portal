@@ -21,7 +21,7 @@ from .settings import MEDIA_ROOT
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^portal/', include('portal.urls')),
-    url(r'^public/', include('frontwork.urls')),
+    url(r'^', include('frontwork.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^media/(?P<path>.*)$',media_server,{'document_root': MEDIA_ROOT, })
 	#url(r'^login/$', auth_views.login, name='login'),
