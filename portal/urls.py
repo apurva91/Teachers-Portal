@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
 	# url(r'^$', views.Index , name='index'),
@@ -27,4 +29,5 @@ urlpatterns = [
     url(r'courses/$', views.list_all_courses, name="list_all_courses"),
     url(r'courses/edit/(?P<id>[0-9]+)$', views.edit_course, name="edit_course"),
     url(r'courses/delete/(?P<id>[0-9]+)$', views.delete_course, name="delete_course"),
+    url(r'^upload/$', views.simple_upload, name="upload_file"),
 ]

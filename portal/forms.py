@@ -84,3 +84,7 @@ class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = ('course_id','title','startdate','enddate','url','semester','active')
+
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
