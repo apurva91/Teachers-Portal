@@ -1,0 +1,179 @@
+{%extends 'portal/base.html'%}
+{%load static%}
+{%block title%}
+Education | Teacher's Portal
+{%endblock%}
+{%block head%}
+{%endblock%}
+{%block title_inpage%} Courses &nbsp;&nbsp;<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><big>+</big> Add New</button> {%endblock%}
+{%block content%}
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">New Degree</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+
+					<form method="POST">
+						<div class="row">
+							<div class="col-md-3 col-xs-12">
+								<div class="form-group">
+									<label for="id_degree">Degree</label> <input type="text" name="degree" class="form-control" maxlength="30" required id="id_degree"/>
+								</div>
+							</div>
+
+							<div class="col-md-9 col-xs-12">
+								<div class="form-group">
+									<label for="id_desc">Branch/Field</label> <input type="text" class="form-control" name="desc" maxlength="200" required id="id_desc" />
+
+								</div>
+							</div>
+
+							<div class="col-md-4 col-xs-12">
+								<div class="form-group">
+									<label for="id_institute">Institute</label><input type="text" name="institute" maxlength="200" id="id_institute" class="form-control" placeholder="Institute Name" />
+								</div>
+							</div>
+
+							<div class="col-md-4 col-xs-12">
+								<div class="form-group">
+									<label for="id_year">Year</label><input type="text" name="year" maxlength="4" id="id_year" class="form-control" placeholder="YYYY" />
+								</div>
+							</div>
+
+							{%csrf_token%}
+						</div>
+						<input type="Submit" class="btn btn-primary" name="Submit">
+					</form>
+
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="editModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Degree</h4>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="editformsrc" action="/portal/education/edit/1">
+					<div class="row edit-form">
+						<div class="col-md-3 col-xs-12">
+							<div class="form-group">
+								<label for="id_degree">Degree</label> <input type="text" name="degree" class="form-control" maxlength="30" required id="id_degree"/>
+							</div>
+						</div>
+
+						<div class="col-md-9 col-xs-12">
+							<div class="form-group">
+								<label for="id_desc">Branch/Field</label> <input type="text" class="form-control" name="desc" maxlength="200" required id="id_desc" />
+							</div>
+						</div>
+
+
+						<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="id_institute">Institute</label><input type="text" name="startdate" maxlength="200" id="id_institute" class="form-control" placeholder="Institute Name" />
+							</div>
+						</div>
+
+						<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="id_year">Year</label><input type="text" name="year" maxlength="4" id="id_year" class="form-control" placeholder="YYYY" />
+							</div>
+						</div>
+
+						{%csrf_token%}
+					</div>
+					<input type="Submit" class="btn btn-primary" name="Submit">
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<h3>Current Degrees</h3>
+<div class="row">
+	{%for c in education%}
+	<div class="col-md-4">
+
+		<!-- Profile Image -->
+		<div class="box box-primary">
+			<div class="box-body box-profile" id="{{c.id}}act">
+				<h3 class="profile-username text-center edudegree">{{c.degree}}</h3>
+
+				<ul class="list-group list-group-unbordered">
+					<li class="list-group-item">
+						<b>Branch/Field</b> <a class="pull-right edudesc">{{c.desc}}</a>
+					</li>
+					<li class="list-group-item">
+						<b>Institute</b> <a class="pull-right eduinstitute">{{c.institute}}</a>
+					</li>
+					<li class="list-group-item">
+						<b>Year</b> <a class="pull-right eduyear">{{c.year}}</a>
+					</li>
+				</ul>
+				<div class="row">
+
+					<div class="col-xs-3">
+						<button href="#" class="btn btn-success btn-block" id="act{{c.id}}" onclick="forminit($(this).attr('id')); " data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+					</div>
+					<div class="col-xs-3">
+						<form method="POST" action="/portal/education/delete/{{c.id}}">
+							{%csrf_token%}
+							<button type="Submit" value="" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button>
+						</form>
+					</div>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+			<!-- /.box -->
+		</div>
+	</div>
+
+	{%endfor%}
+
+</div>
+
+
+{%endblock%}
+{%block customsc%}
+<script type="text/javascript">
+	function forminit(ide){
+		var x  = ide.slice(3);
+			var ids=x+'act';
+
+
+		$('.edit-form #id_degree').val($('#'+ids+' .edudegree')[0].innerHTML);
+		$('.edit-form #id_desc').val($('#'+ids+' .edudesc')[0].innerHTML);
+		$('.edit-form #id_institute').val($('#'+ids+' .eduinstitute')[0].innerHTML);
+		$('.edit-form #id_year').val($('#'+ids+' .eduyear')[0].innerHTML);
+		$('#editformsrc').attr('action','/portal/education/edit/'+x);
+	}
+</script>
+{%endblock%}
