@@ -73,7 +73,7 @@
 
    			<div class="col-twelve">
 
-	   			<h5>Hello, World !.</h5>
+	   			<h5>Hello, World!.</h5>
 	   			<h1>I'm {{user.name}}</h1>
 
 	   			<p class="intro-position">
@@ -212,36 +212,46 @@
    		<div class="col-twelve resume-header">
 
    			<h2>Active Courses</h2>
-   			{%for c in course%}
-   			<h3>{{c.title}}</h3>
-   			<h3>{{c.semester}}</h3>
-   			{%endfor%}
+   				
 
    		</div> <!-- /resume-header -->
 
    		<div class="col-twelve">
-
+   			{%for c in course%}
    			<div class="timeline-wrap">
 
    				 <div class="timeline-block">
 
 	   				<div class="timeline-ico">
-	   					<i class="fa fa-graduation-cap"></i>
+	   					<i class="fa fa-book"></i>
 	   				</div>
 
 	   				<div class="timeline-header">
-	   					<h3>UI Designer</h3>
-	   					<p>July 2015 - Present</p>
+	   					<h3>{{c.course_id}}</h3>
+	   					{% if c.semester is 1 %}
+	   					<p>
+	   						July-Nov,{{c.startdate}}
+	   					
+	   				</p>
+	   				{% endif %}
+	   					{% if c.semester is 2 %}
+	   					<p>
+	   						Jan-May,{{c.startdate}}
+	   					
+	   				</p>
+	   				{% endif %}
 	   				</div>
 
 	   				<div class="timeline-content">
-	   					<h4>Awesome Studio</h4>
-	   					<p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi.</p>
+	   					<h4>{{c.title}}</h4>
+	   					<p></p>
 	   				</div>
 
 	   			</div>
 
-   			</div> <!-- /timeline-wrap -->   			
+   			</div> 
+   			{%endfor%}	
+
 
    		</div> <!-- /col-twelve -->
    		
@@ -736,11 +746,11 @@
 						</div>
 
 						<h3 class="stat-count">
-							1500
+							30
 						</h3>
 
 						<h5 class="stat-title">
-							Projects Completed
+							Couses Taken
 						</h5>
 
 					</div> <!-- /stat -->					
@@ -752,11 +762,11 @@
 						</div>
 
 						<h3 class="stat-count">
-							900
+							15
 						</h3>
 
 						<h5 class="stat-title">
-							Happy Clients
+							Published Papers
 						</h5>
 
 					</div> <!-- /stat -->
@@ -777,7 +787,7 @@
 
 					</div> <!-- /stat -->									
 
-					<div class="bgrid stat">
+					<!-- <div class="bgrid stat">
 
 						<div class="icon-part">
 							<i class="icon-light-bulb"></i>
@@ -791,7 +801,7 @@
 							Crazy Ideas
 						</h5>
 
-					</div> <!-- /stat -->
+					</div> --> <!-- /stat -->
 
 					<div class="bgrid stat">
 
@@ -800,11 +810,11 @@
 						</div>
 
 						<h3 class="stat-count">
-							1500
+							35
 						</h3>
 
 						<h5 class="stat-title">
-							Coffee Cups
+							Projects Undertaken
 						</h5>
 
 					</div> <!-- /stat -->
@@ -816,11 +826,11 @@
 						</div>
 
 						<h3 class="stat-count">
-							7200
+							1000
 						</h3>
 
 						<h5 class="stat-title">
-							Hours
+							Number of Students
 						</h5>
 
 					</div> <!-- /stat -->
