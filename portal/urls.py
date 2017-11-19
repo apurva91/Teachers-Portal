@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'projects/delete/(?P<id>[0-9]+)$', views.delete_project, name="delete_project"),
     url(r'^upload/$', views.simple_upload, name="upload_file"),
     url(r'^submitlink/$', views.submitLink, name="submit_file"),
+    url(r'^newuser/$', views.create_new_user, name="create_new_user"),
+
 ]
 
 if settings.DEBUG:

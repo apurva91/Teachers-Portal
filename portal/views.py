@@ -11,6 +11,54 @@ from django.db.models import Q
 import requests
 import tempfile, os
 from django.core import files
+import random, string
+
+def PWDGen(length):
+   letters = string.ascii_lowercase + string.ascii_uppercase + string.digits
+   return ''.join(random.choice(letters) for i in range(length))
+
+# def PassReset(email):
+#     client = requests.session()
+#     client.get('http://localhost:8000/portal/forgot')
+#     csrftoken = client.cookies['csrftoken']
+#     data = dict(email=email,csrfmiddlewaretoken=csrftoken)
+#     r = client.post('http://localhost:8000/portal/forgot',data=data)
+#     return r
+
+def create_new_user(request):
+    if request.method == 'POST':
+
+        ''' Begin reCAPTCHA validation '''
+        recaptcha_response = request.POST['g-recaptcha-response']
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        data = urllib.parse.urlencode(values).encode()
+        req =  urllib.request.Request(url, data=data)
+        response = urllib.request.urlopen(req)
+        result = json.loads(response.read().decode())
+        ''' End reCAPTCHA validation '''
+
+        if result['success']:
+            email = request.POST['email']
+            username = request.POST['username']
+            name = request.POST['name']
+            if User.objects.filter(username=username).count() is not 0:
+                return render(request, 'registration/newuser.html', {'error_message': 'Username Already Exists'})
+            if User.objects.filter(email=email).count() is not 0:
+                return render(request, 'registration/newuser.html', {'error_message': 'Email Already Registered'})
+            user = User(username=username,password=PWDGen(32),email=email)
+            user.save()
+            profile = Profile(user=user,name=name,webmail=email)
+            profile.save()
+            return redirect('/portal/newuser/')
+        else:
+            return render(request, 'registration/newuser.html', {'error_message': 'Invalid Captcha.'})
+    else:
+        return render(request, 'registration/newuser.html')
+
 
 def loginForm(request):
     if request.method == 'POST':

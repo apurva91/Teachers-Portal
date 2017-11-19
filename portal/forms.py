@@ -78,3 +78,20 @@ class LinkForm(forms.Form):
     link=forms.URLField(required=True)
     class Meta:
         fields=('link')
+
+class NewUserForm(forms.Form):
+    email=forms.EmailField(required=True)
+    username=forms.CharField(required=True)
+    name=forms.CharField(required=True)
+    class Meta:
+        fields = ('email', 'username', 'name')
+
+class SignUpForm(UserCreationForm):
+    username=forms.CharField(max_length=60,required=True, widget=forms.TextInput(attrs={'class':'form-control',}))
+    email=forms.EmailField(max_length=100, required=True, widget=forms.TextInput(attrs={'class':'form-control',}))
+    password1=forms.CharField(max_length=100, label='Password',required=True, widget=forms.PasswordInput(attrs={'class':'form-control',}))
+    password2=forms.CharField(max_length=100,label='Retype Password', required=True, widget=forms.PasswordInput(attrs={'class':'form-control',}))
+    #birth_date=forms.DateField(widget=forms.TextInput(attrs={'id':'datepicker','class':'form-control',}))
+    class Meta:
+        model = User
+        fields=('username','email','password1','password2',)
