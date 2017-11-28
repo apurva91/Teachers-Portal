@@ -72,12 +72,12 @@ class CourseSubPage(models.Model):
 
 class Project(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    title=models.CharField(max_length=100)
-    pi=models.CharField(max_length=50)
-    copi=models.CharField(max_length=100)
-    funding=models.CharField(max_length=50)
-    startyear=models.IntegerField()
-    endyear=models.IntegerField()
+    title=models.CharField(max_length=100,blank=True)
+    pi=models.CharField(max_length=50,blank=True)
+    copi=models.CharField(max_length=100,blank=True)
+    funding=models.CharField(max_length=50,blank=True)
+    startyear=models.CharField(max_length=10,blank=True)
+    endyear=models.CharField(max_length=10,blank=True)
 
     def __str__(self):
         return self.title

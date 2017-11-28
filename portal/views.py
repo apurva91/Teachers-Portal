@@ -150,6 +150,43 @@ def list_all_courses(request):
     incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
     return render(request, 'portal/courses.html', {'form': form, 'course':course, 'incourse':incourse,})
 
+def CrawlGet(start,end,code):
+    urls=[]
+    for item in code.split(end):
+        if start in item:
+            urls.append(item [item.find(start)+len(start) : ])
+    return urls
+
+def Extract_Course(content,user_id):
+    x=""
+    y=""
+    for item in content.split("<!-- END COURSES OFFERED SECTION-->"):
+        if '<!-- START COURSES OFFERED SECTION -->' in item:
+            x+=  item [item.find('<!-- START COURSES OFFERED SECTION -->')+len('<!-- START COURSES OFFERED SECTION -->') : ]
+    lis=[]
+    for item in x.split("</li>"):
+        if('<li>') in item:
+            final = item [item.find('<li>')+len('<li>') : ]
+            mylist = re.split(' \xe2\x8b\x84 | &diam; | : |-',final)
+            lis.append(mylist)
+    user = Profile.objects.get(id=user_id)
+    for idx,item in enumerate(lis):
+        course = Course()
+        course.user=user.user
+        course.startdate=item[0].replace(" ","")
+        course.enddate=item[1]
+        if item[2][0]=="E":
+            course.semester=2
+        else:
+            course.semester=1
+        course.course_id=item[3]
+        course.title=item[4].replace("&amp;","&")
+        course.active=0
+        course.url="#"
+        user.courses=user.courses+1
+        user.save()
+        course.save()
+
 def Extract_Profile(content,user_id):
     x=""
     for item in content.split("<!-- END PROFILE INFO SECTION -->"):
@@ -214,6 +251,40 @@ def Extract_Edu(content,user_id):
         edu.year=int(item.split(",")[-1][1:-1])
         edu.save()
 
+def Extract_Project(content,user_id):
+    x=""
+    for item in content.split("<!-- END SPONSORED RESEARCH PROJECTS SECTION -->"):
+        if '<!-- START SPONSORED RESEARCH PROJECTS SECTION -->' in item:
+            x+=  item [item.find('<!-- START SPONSORED RESEARCH PROJECTS SECTION -->')+len('<!-- START SPONSORED RESEARCH PROJECTS SECTION -->') : ]
+    lis=[]  
+    pub=[]
+    for item in x.split("</p>"):
+        if '<p align="justify">' in item:
+            pub.append(item [item.find('<p align="justify">')+len('<p align="justify">') : ])
+    y=""
+    user = Profile.objects.get(id=user_id)
+    for item in pub:
+        proj = Project()
+        proj.user = user.user
+        user.projects = user.projects + 1
+        for item2 in CrawlGet('<strong>','<br />', item):
+            a =  item2.split('</strong>')[0][:-1]
+            b = item2.split('</strong>')[1][1:]
+            if a == "Project Title":
+                proj.title = b
+            elif a == "Co-PI":
+                proj.copi=b
+            elif a == "PI":
+                proj.pi=b
+            elif a == "Funding Agency":
+                proj.funding=b
+            elif a == "Start Year":
+                proj.startyear=b
+            elif a == "End Year":
+                proj.endyear = b
+        proj.save()
+    user.save()
+
 def Extractor(url,user_id):
     response = urllib.request.urlopen(url)
     content = response.read()
@@ -221,8 +292,8 @@ def Extractor(url,user_id):
     # content = content.encode("utf8")
     # Extract_Course(content,user_id)
     # Extract_Profile(content,user_id)
-    Extract_Edu(content,user_id)
-
+    # Extract_Edu(content,user_id)
+    # Extract_Project(content,user_id)
 
 def submitLink(request):
     if request.method == 'POST':
