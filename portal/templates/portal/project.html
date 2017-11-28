@@ -25,28 +25,30 @@ Projects | Teacher's Portal
 
 					<form method="POST">
 						<div class="row">
-							<div class="col-md-3 col-xs-12">
+							<div class="col-md-12 col-xs-12">
 								<div class="form-group">
 									<label for="id_title">Project Title</label> <input type="text" name="title" class="form-control" maxlength="100" required id="id_title"/>
 								</div>
 							</div>
 
-							<div class="col-md-9 col-xs-12">
+
+							<div class="col-md-6 col-xs-12">
+								<div class="form-group">
+									<label for="id_funding">Funding Agency</label><input type="text" name="funding" maxlength="50" id="id_funding" class="form-control" />
+								</div>
+							</div>
+
+
+							<div class="col-md-6 col-xs-12">
 								<div class="form-group">
 									<label for="id_pi">Project Incharge</label> <input type="text" class="form-control" name="pi" maxlength="50" required id="copi" />
 
 								</div>
 							</div>
 
-							<div class="col-md-4 col-xs-12">
+							<div class="col-md-12 col-xs-12">
 								<div class="form-group">
 									<label for="id_copi">Co-Incharge(s)</label><input type="text" name="copi" maxlength="100" id="id_copi" class="form-control" placeholder="(if any)" />
-								</div>
-							</div>
-
-							<div class="col-md-4 col-xs-12">
-								<div class="form-group">
-									<label for="id_funding">Funding Agency</label><input type="text" name="funding" maxlength="50" id="id_funding" class="form-control" />
 								</div>
 							</div>
 
@@ -89,29 +91,30 @@ Projects | Teacher's Portal
 			<div class="modal-body">
 				<form method="POST" id="editformsrc" action="/portal/projects/edit/1">
 					<div class="row edit-form">
-						<div class="col-md-3 col-xs-12">
+						<div class="col-md-12 col-xs-12">
 							<div class="form-group">
 								<label for="id_title">Project Title</label> <input type="text" name="title" class="form-control" maxlength="100" required id="id_title"/>
 							</div>
 						</div>
 
-						<div class="col-md-9 col-xs-12">
-							<div class="form-group">
-								<label for="id_pi">Project Incharge</label> <input type="text" class="form-control" name="pi" maxlength="50" required id="id_pi" />
-							</div>
-						</div>
-
-            <div class="col-md-9 col-xs-12">
-              <div class="form-group">
-                <label for="id_copi">Co-incharge(s)</label> <input type="text" class="form-control" name="copi" maxlength="50" required id="id_copi" />
-              </div>
-            </div>
 
 						<div class="col-md-4 col-xs-12">
 							<div class="form-group">
 								<label for="id_funding">Funding Agency</label><input type="text" name="funding" maxlength="50" id="id_funding" class="form-control" />
 							</div>
 						</div>
+
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="id_pi">Project Incharge</label> <input type="text" class="form-control" name="pi" maxlength="50" required id="id_pi" />
+							</div>
+						</div>
+
+            <div class="col-md-12 col-xs-12">
+              <div class="form-group">
+                <label for="id_copi">Co-incharge(s)</label> <input type="text" class="form-control" name="copi" maxlength="50" required id="id_copi" />
+              </div>
+            </div>
 
 						<div class="col-md-4 col-xs-12">
 							<div class="form-group">
@@ -142,7 +145,7 @@ Projects | Teacher's Portal
 <h3>Completed Projects</h3>
 <div class="row">
 	{%for c in projects%}
-	<div class="col-md-4">
+	<div class="col-md-12 col-xs-12">
 
 		<!-- Profile Image -->
 		<div class="box box-primary">
@@ -167,11 +170,11 @@ Projects | Teacher's Portal
 					</li>
 				</ul>
 				<div class="row">
-
-					<div class="col-xs-3">
+				<div class="col-xs-10"></div>
+					<div class="col-xs-1">
 						<button href="#" class="btn btn-success btn-block" id="act{{c.id}}" onclick="forminit($(this).attr('id')); " data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 					</div>
-					<div class="col-xs-3">
+					<div class="col-xs-1">
 						<form method="POST" action="/portal/projects/delete/{{c.id}}">
 							{%csrf_token%}
 							<button type="Submit" value="" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button>

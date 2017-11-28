@@ -271,7 +271,7 @@ def Extract_Project(content,user_id):
             a =  item2.split('</strong>')[0][:-1]
             b = item2.split('</strong>')[1][1:]
             if a == "Project Title":
-                proj.title = b
+                proj.title = b[1:-1]
             elif a == "Co-PI":
                 proj.copi=b
             elif a == "PI":
