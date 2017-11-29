@@ -641,14 +641,22 @@ def simple_upload(request):
     return render(request, 'portal/upload.html')
 
 def entities_text(text,sent_score,sent_mag):
+    """Detects entities in the text."""
     client = language.LanguageServiceClient()
 
+    # if isinstance(text, six.binary_type):
+    #     text = text.decode('utf-8')
+
+    # Instantiates a plain text document.
     document = types.Document(
         content=text,
         type=enums.Document.Type.PLAIN_TEXT)
 
+    # Detects entities in the document. You can also analyze HTML with:
+    #   document.type == enums.Document.Type.HTML
     entities = client.analyze_entities(document).entities
 
+    # entity types from enums.Entity.Type
     entity_type = ('UNKNOWN', 'PERSON', 'LOCATION', 'ORGANIZATION',
                    'EVENT', 'WORK_OF_ART', 'CONSUMER_GOOD', 'OTHER')
     
@@ -682,10 +690,11 @@ def entities_text(text,sent_score,sent_mag):
             post=entity.name
 
     if isReview==1:
+
         if sent_score<0:
-            output='You have a Critical Review from '+naam
-        if sent_score>0.40 and sent_mag>1:
-            output='You have 1 Positive review from '+naam
+            output='You have a Critical Review '
+        if sent_score>0:
+            output='You have a Positive Review '
 
     if isMeeting==1:
         if len(loc)>0:
@@ -694,7 +703,7 @@ def entities_text(text,sent_score,sent_mag):
             output="Hey "+naam+",You have a " +eve+ " on 29/11/2017 "
 
     if isDoubt==1:
-        output='You have 1 doubt'
+        output='You have 1 new doubt'
     if isPromotion==1 and sent_score>0.35:    
         output='Congratulations,'+naam+' you have been promoted to '+post
      
@@ -702,22 +711,26 @@ def entities_text(text,sent_score,sent_mag):
 
 def Analyze(text):
     client=language.LanguageServiceClient()
+
     document = types.Document(
         content=text,
         type=enums.Document.Type.PLAIN_TEXT
     )
     sentiment = client.analyze_sentiment(document=document).document_sentiment
+
     sent_score=sentiment.score
     sent_mag=sentiment.magnitude
-    return entities_text(text,sent_score,sent_mag)
+    return entities_text(text,sent_score,sent_mag) 
 
 def upload_analyze(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
-        user=Profile.objects.filter(user=request.user)
-        Notif = Analyze(myfile.read().decode("utf-8").replace(":"," ").replace("-"," ").replace("\n"," ").replace("\t"," ").replace("\r"," "))
-        noti=Notification(user=user,message=Notif,is_read=0)
-        user.notif = user.notif + 1
-        noti.save()
-        user.save()
-        return render(request, 'portal/upload.html')
+        user=Profile.objects.get(user=request.user)
+        Notif = Analyze(myfile.read().decode("utf-8"))
+        # noti=Notification(user=user,message=Notif,is_read=0)
+        # user.notif = user.notif + 1
+        # noti.save()
+        # user.save()
+        return HttpResponse(Notif)
+    return render(request, 'portal/upload.html')
+

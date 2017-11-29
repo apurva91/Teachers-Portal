@@ -15,7 +15,7 @@ def course():
 			final = item [item.find('<li>')+len('<li>') : ]
 			mylist = re.split(' \xe2\x8b\x84 | &diam; | : |-',final)
 			lis.append(mylist)
-	
+
 	for idx,item in enumerate(lis):
 		print "Sr No.: " + str(idx)
 		print "Start Year: " + item[0].replace(" ","")
@@ -49,7 +49,7 @@ def Profile():
 				for idx,item2 in enumerate(item.split("</label>")):
 					if '<label>' in item2:
 						lis.append(item2 [item2.find('<label>')+len('<label>') : ])
-				
+
 				y = (item [item.find('<p>')+len('<p>') : ])
 				v = re.split("<br />|,",y)
 				lis.append(v[0])
@@ -64,7 +64,7 @@ def Publications():
 	for item in content.split("<!-- END Publications SECTION -->"):
 		if '<!-- START Publications SECTION -->' in item:
 			x+=  item [item.find('<!-- START Publications SECTION -->')+len('<!-- START Publications SECTION -->') : ]
-	lis=[]	
+	lis=[]
 	pub=[]
 	for item in x.split("</p>"):
 		if '<p align="justify">' in item:
@@ -84,7 +84,7 @@ def Books():
 	for item in content.split("<!-- END BOOKS/BOOK CHAPTERS SECTION -->"):
 		if '<!-- START BOOKS/BOOK CHAPTERS SECTION -->' in item:
 			x+=  item [item.find('<!-- START BOOKS/BOOK CHAPTERS SECTION -->')+len('<!-- START BOOKS/BOOK CHAPTERS SECTION -->') : ]
-	lis=[]	
+	lis=[]
 	pub=[]
 	for item in x.split("</p>"):
 		if '<p align="justify">' in item:
@@ -103,7 +103,7 @@ def Education():
 	for item in content.split("<!-- END ACADEMIC PROFILE SECTION -->"):
 		if '<!-- START ACADEMIC PROFILE SECTION -->' in item:
 			x+=  item [item.find('<!-- START ACADEMIC PROFILE SECTION -->')+len('<!-- START ACADEMIC PROFILE SECTION -->') : ]
-	lis=[]	
+	lis=[]
 	pub=[]
 	for item in x.split("</p>"):
 		if '<p align="justify">' in item:
@@ -140,12 +140,12 @@ def Projects():
 	for item in content.split("<!-- END SPONSORED RESEARCH PROJECTS SECTION -->"):
 		if '<!-- START SPONSORED RESEARCH PROJECTS SECTION -->' in item:
 			x+=  item [item.find('<!-- START SPONSORED RESEARCH PROJECTS SECTION -->')+len('<!-- START SPONSORED RESEARCH PROJECTS SECTION -->') : ]
-	lis=[]	
+	lis=[]
 	pub=[]
 	for item in x.split("</p>"):
 		if '<p align="justify">' in item:
 			pub.append(item [item.find('<p align="justify">')+len('<p align="justify">') : ])
-	
+
 	for item in pub:
 		print CrawlGet('<strong>','<br />', item)
 	# for idx,item in enumerate(pub):
