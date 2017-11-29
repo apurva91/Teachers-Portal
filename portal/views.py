@@ -290,10 +290,10 @@ def Extractor(url,user_id):
     content = response.read()
     content=str(content)
     # content = content.encode("utf8")
-    # Extract_Course(content,user_id)
-    # Extract_Profile(content,user_id)
-    # Extract_Edu(content,user_id)
-    # Extract_Project(content,user_id)
+    Extract_Course(content,user_id)
+    Extract_Profile(content,user_id)
+    Extract_Edu(content,user_id)
+    Extract_Project(content,user_id)
 
 def submitLink(request):
     if request.method == 'POST':
