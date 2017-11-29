@@ -27,7 +27,7 @@ Profile
 {%block content%}
 
 <div class="row">
-	<div class="col-xs-6">
+	<div class="col-xs-12">
 		<div class="box box-primary panel">
 			<div class="box-body box-profile">
 				&nbsp;
@@ -50,15 +50,10 @@ Profile
 					</li>
 				</ul>
 				<div class="row">
-					<div class="col-xs-6">
-						<a href="{{c.url}}" class="btn btn-primary btn-block" target="_blank">Webpage</a>
-					</div>
 					<div class="col-xs-3">
 						<a href="#" onclick="$('.panel-edit').show(1000); $('.panel').hide();" class="btn btn-success btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 					</div>
-					<div class="col-xs-3">
-						<a href="#" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></a>
-					</div>
+
 				</div>
 				<!-- /.box-body -->
 			</div>
@@ -105,23 +100,7 @@ Profile
 							<input type="text" class="form-control" name="residence" value="{{rup.residence}}"  id="id_residence" maxlength="500" />
 						</div>
 
-						<br>
-						<br>
-						<div class="col-xs-4">
-							<label for="id_education">Education:</label>
-						</div>
-						<div class="col-xs-8">
-							<input type="text" class="form-control" name="education" value="{{rup.education}}" id="id_education" maxlength="500" />
-						</div>
-						<br>
-						<br>
-						<div class="col-xs-4">
-							<label for="id_workexp">Workexp:</label>
-						</div>
-						<div class="col-xs-8">
-							<input type="text" class="form-control" name="workexp" value="{{rup.workexp}}" id="id_workexp" maxlength="500" />
-						</div>
-
+						
 						<br>
 						<br>
 						<div class="col-xs-4">
@@ -169,11 +148,7 @@ Profile
 		<!-- /.box -->
 	</div>
 </div>
-<div class="col-xs-6">
-Education
-<br>
 
-</div>
 </div>
 
 
