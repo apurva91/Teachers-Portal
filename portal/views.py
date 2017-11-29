@@ -652,3 +652,4 @@ def upload_analyze(request):
         # user.save()
         return HttpResponse(Notif)
     return render(request, 'portal/upload.html')
+
