@@ -17,6 +17,6 @@ urlpatterns = [
 	# url(r'^messages/(?P<reciever>([\wd._-])+)/refresh$',views.MsgRefresh, name='remsg'),
     url(r'^professor/(?P<username>([\wd._-])+)/$', views.teacher, name="teacher"),
     # url(r'^professor/(?P<username>([\wd._-])+)/query/$', views.QueryRecieve, name="QueryRecieve"),
-    url(r'^faculty/$', views.faculty, name="faculty"),
-    url(r'^$', views.index, name="index"),
+    url(r'^$', views.faculty, name="faculty"),
+    # url(r'^$', views.index, name="index"),
 ]
