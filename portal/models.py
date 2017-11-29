@@ -26,6 +26,7 @@ class Profile(models.Model):
     projects=models.IntegerField(default=0)
     publications=models.IntegerField(default=0)
     students=models.IntegerField(default=0)
+    notif=models.IntegerField(default=0)
     def __str__(self):
         return self.user.username
 
@@ -117,3 +118,9 @@ class QueryModel(models.Model):
     subject=models.CharField(max_length=50)
     name=models.CharField(max_length=50)
     email=models.EmailField(max_length=50)
+
+class Notification(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    message=models.CharField(max_length=250)
+    is_read=models.BooleanField(default=0)
+    text=models.CharField(max_length=300, blank=True)

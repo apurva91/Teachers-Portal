@@ -38,11 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_mailbox',
-    'captcha',
     'frontwork',
-    'ckeditor',
-    'ckeditor_uploader',
     'requests',
 ]
 

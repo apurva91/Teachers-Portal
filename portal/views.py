@@ -2,14 +2,19 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
-import json, urllib,re
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
 from .models import *
 from django.db.models import Q
-import requests, tempfile, os, random, string
+import requests, tempfile, os, random, string, json, urllib,re
 from django.core import files
+from google.cloud import language
+from google.cloud.language import enums
+from google.cloud.language import types
+
+from oauth2client.client import GoogleCredentials
+credentials = GoogleCredentials.get_application_default()
 
 def PWDGen(length):
    letters = string.ascii_lowercase + string.ascii_uppercase + string.digits
@@ -470,6 +475,14 @@ def edit_publication(request,id):
             return redirect('/portal/publications/')
     return redirect('/portal/publications/')
 
+def notivi(request):
+    noti=Notification.objects.filter(user=request.user)
+    user=Profile.objects.get(user=request.user)
+    user.notif=0
+    user.save()
+    return render(request, 'portal/student.html', {'noti':noti})
+
+
 def delete_publication(request,id):
     if request.method == 'POST':
         publication = Publication.objects.get(id=id)
@@ -545,3 +558,85 @@ def simple_upload(request):
             'uploaded_file_url': uploaded_file_url
         })
     return render(request, 'portal/upload.html')
+
+def entities_text(text,sent_score,sent_mag):
+    client = language.LanguageServiceClient()
+
+    document = types.Document(
+        content=text,
+        type=enums.Document.Type.PLAIN_TEXT)
+
+    entities = client.analyze_entities(document).entities
+
+    entity_type = ('UNKNOWN', 'PERSON', 'LOCATION', 'ORGANIZATION',
+                   'EVENT', 'WORK_OF_ART', 'CONSUMER_GOOD', 'OTHER')
+    
+    isMeeting=0
+    isReview=0
+    isDoubt=0
+    isPromotion=0
+
+    naam=""
+    loc=""
+    eve=""
+    course=""
+    post=""
+    output=""
+    for entity in entities:
+        if entity.name.lower()=='review' or entity.name.lower()=='feedback':
+            isReview=1
+        if entity.name.lower()=='meeting':
+            isMeeting=1
+        if entity.name.lower()=='doubt':
+            isDoubt=1
+        if entity.name.lower()=='promotion':
+            isPromotion=1
+        if entity.type==1 and entity.salience>0.1:
+            naam=entity.name
+        if entity.type==4:
+            eve=entity.name
+        if entity.type==2:
+            loc=entity.name
+        if entity.type==1 and 0.04<entity.salience<0.06:
+            post=entity.name
+
+    if isReview==1:
+        if sent_score<0:
+            output='You have a Critical Review from '+naam
+        if sent_score>0.40 and sent_mag>1:
+            output='You have 1 Positive review from '+naam
+
+    if isMeeting==1:
+        if len(loc)>0:
+            output="Hey "+naam+",You have a " +eve+" at "+loc + " on 29/11/2017 "
+        else:
+            output="Hey "+naam+",You have a " +eve+ " on 29/11/2017 "
+
+    if isDoubt==1:
+        output='You have 1 doubt'
+    if isPromotion==1 and sent_score>0.35:    
+        output='Congratulations,'+naam+' you have been promoted to '+post
+     
+    return output
+
+def Analyze(text):
+    client=language.LanguageServiceClient()
+    document = types.Document(
+        content=text,
+        type=enums.Document.Type.PLAIN_TEXT
+    )
+    sentiment = client.analyze_sentiment(document=document).document_sentiment
+    sent_score=sentiment.score
+    sent_mag=sentiment.magnitude
+    return entities_text(text,sent_score,sent_mag)
+
+def upload_analyze(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        user=Profile.objects.filter(user=request.user)
+        Notif = Analyze(myfile.read().decode("utf-8").replace(":"," ").replace("-"," ").replace("\n"," ").replace("\t"," ").replace("\r"," "))
+        noti=Notification(user=user,message=Notif,is_read=0)
+        user.notif = user.notif + 1
+        noti.save()
+        user.save()
+        return render(request, 'portal/upload.html')
