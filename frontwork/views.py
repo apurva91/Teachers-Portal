@@ -36,6 +36,7 @@ def teacher(request,username):
 	suc_message=""
 	error_message=''
 	course=Course.objects.filter(Q(active=True) & Q(user=user.user.id)).order_by('-semester')
+	incourse=Course.objects.filter(Q(active=False) & Q(user=user.user.id)).order_by('-semester')
 	education=Education.objects.filter(Q(user=user.user.id)).order_by('-year')
 	projects=Project.objects.filter(Q(user=user.user.id)).order_by('-endyear')
 	publications=Publication.objects.filter(Q(user=user.user.id)).order_by('-id')
@@ -69,9 +70,9 @@ def teacher(request,username):
 			user.save()
 			query.save()
 			suc_message='<i class="fa fa-check"></i>Your message was sent, thank you!'
-			return render(request,'teacher.html',{'user':user,'course':course,'education':education,'education':education,'projects':projects,'publications':publications,'suc_message':suc_message,error_message:''})
+			return render(request,'teacher.html',{'user':user,'course':course,'incourse':incourse,'education':education,'education':education,'projects':projects,'publications':publications,'suc_message':suc_message,error_message:''})
 		elif len(request.POST['name']) > 1:
 			error_message = '<i class="fa fa-exclamation-circle"></i> Invalid Captcha.'
-			return render(request,'teacher.html',{'user':user,'course':course,'education':education,'education':education,'projects':projects,'publications':publications,'error_message':error_message,'suc_message':""})
+			return render(request,'teacher.html',{'user':user,'course':course,'incourse':incourse,'education':education,'education':education,'projects':projects,'publications':publications,'error_message':error_message,'suc_message':""})
 	else:
-		return render(request,'teacher.html',{'user':user,'course':course,'education':education,'projects':projects,'publications':publications,'students':students,'error_message':"",'suc_message':""})
+		return render(request,'teacher.html',{'user':user,'course':course,'incourse':incourse,'education':education,'projects':projects,'publications':publications,'students':students,'error_message':"",'suc_message':""})
