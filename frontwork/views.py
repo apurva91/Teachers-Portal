@@ -60,11 +60,11 @@ def teacher(request,username):
 			query.subject=request.POST['subject']
 			query.message=request.POST['message']
 			query.user=user.user
-	        user=Profile.objects.get(user=request.user)
-	        noti=Notification(user=user,message=subject,text=text,is_read=0)
-        	user.notif = user.notif +1
-        	noti.save()
-        	user.save()
+	        # user=Profile.objects.get(user=request.user)
+	        # noti=Notification(user=user,message=subject,text=text,is_read=0)
+        	# user.notif = user.notif +1
+        	# noti.save()
+        	# user.save()
 			query.save()
 			suc_message='<i class="fa fa-check"></i>Your message was sent, thank you!'
 			return render(request,'teacher.html',{'user':user,'course':course,'education':education,'suc_message':suc_message,error_message:''})	
