@@ -503,9 +503,10 @@ def list_all_students(request):
             return redirect('/portal/students/')
     else:
         form = StudentForm()
-    students = Student.objects.filter(Q(user=request.user)).order_by('-id')
+    students = Student.objects.filter(Q(user=request.user) & Q(completed=0)).order_by('-id')
+    paststudents = Student.objects.filter(Q(user=request.user) & Q(completed=1)).order_by('-id')
     # incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
-    return render(request, 'portal/student.html', {'form': form, 'students':students})
+    return render(request, 'portal/student.html', {'form': form, 'students':students, 'paststudents':paststudents,})
 
 def edit_student(request,id):
     if request.method == 'POST':

@@ -1,0 +1,264 @@
+{%extends 'portal/base.html'%}
+{%load static%}
+{%block title%}
+Students | Teacher's Portal
+{%endblock%}
+{%block head%}
+<style type="text/css">
+	.sname{
+		height:46px;
+	}
+</style>
+{%endblock%}
+{%block title_inpage%} Students &nbsp;&nbsp;<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><big>+</big> Add New</button> {%endblock%}
+{%block content%}
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add a Student</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+
+					<form method="POST">
+						<div class="row">
+              <div class="col-md-4 col-xs-12">
+								<div class="form-group">
+									<label for="id_degree">Degree:</label>
+									<select name="degree" class="form-control" id="id_degree">
+										<option value="1" selected>Ph.D.</option>
+
+										<option value="2">M.Tech.</option>
+                    <option value="3">B.Tech.</option>
+
+									</select>
+
+								</div>
+							</div>
+
+							<div class="col-md-9 col-xs-12">
+								<div class="form-group">
+									<label for="id_name">Name</label> <input type="text" class="form-control" name="name" maxlength="50" required id="id_name" />
+								</div>
+							</div>
+
+							<div class="col-md-9 col-xs-12">
+								<div class="form-group">
+									<label for="id_thesis_title">Title of Thesis</label><input type="text" name="thesis_title" maxlength="100" id="id_thesis_title" class="form-control" />
+								</div>
+							</div>
+
+							<div class="col-md-10 col-xs-12">
+								<div class="form-group">
+									<label for="id_completed">Completed</label> <input type="checkbox"  name="completed" id="id_completed" checked />
+								</div>
+							</div>
+							<div class="col-md-9 col-xs-12">
+								<div class="form-group">
+									<label for="id_supervisors">Supervisors</label> <input type="text" class="form-control" name="supervisors" maxlength="80" id="id_supervisors" />
+								</div>
+							</div>
+							{%csrf_token%}
+						</div>
+						<input type="Submit" class="btn btn-primary" name="Submit">
+					</form>
+
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<div id="editModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Student Details</h4>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="editformsrc" action="/portal/students/edit/1">
+          <div class="row edit-form">
+            <div class="col-md-4 col-xs-12">
+              <div class="form-group">
+                <label for="id_degree">Degree:</label>
+                <select name="degree" class="form-control" id="id_degree">
+                  <option value="1" selected>Ph.D.</option>
+
+                  <option value="2">M.Tech.</option>
+                  <option value="3">B.Tech.</option>
+
+                </select>
+
+              </div>
+            </div>
+
+            <div class="col-md-9 col-xs-12">
+              <div class="form-group">
+                <label for="id_name">Name</label> <input type="text" class="form-control" name="name" maxlength="50" required id="id_name" />
+              </div>
+            </div>
+
+            <div class="col-md-9 col-xs-12">
+              <div class="form-group">
+                <label for="id_thesis_title">Title of Thesis</label><input type="text" name="thesis_title" maxlength="100" id="id_thesis_title" class="form-control" />
+              </div>
+            </div>
+
+            <div class="col-md-10 col-xs-12">
+              <div class="form-group">
+                <label for="id_completed">Completed</label> <input type="checkbox"  name="completed" id="id_completed" checked />
+              </div>
+            </div>
+            <div class="col-md-9 col-xs-12">
+              <div class="form-group">
+                <label for="id_supervisors">Supervisors</label> <input type="text" class="form-control" name="supervisors" maxlength="80" id="id_supervisors" />
+              </div>
+            </div>
+						{%csrf_token%}
+					</div>
+					<input type="Submit" class="btn btn-primary" name="Submit">
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<h3>Current Students</h3>
+<div class="row">
+	{%for c in students%}
+	<div class="col-md-4">
+
+		<!-- Profile Image -->
+		<div class="box box-primary   ">
+			<div class="box-body box-profile" id="{{c.id}}act">
+				<h3 class="profile-username text-center sname">{{c.name}}</h3>
+
+				<ul class="list-group list-group-unbordered">
+					<li class="list-group-item">
+						<b>Degree</b> <a class="pull-right sdegree"><span class="degreec">{%if c.degree is 1%}Ph.D.{%endif%}{%if c.degree is 2%}M.Tech.{%endif%}{%if c.degree is 3%}B.Tech.{%endif%}</span></a>
+					</li>
+
+					<li class="list-group-item">
+						<b>Thesis Title</b> <a class="pull-right sthesis">{{c.thesis_title}}</a>
+					</li>
+
+          <li class="list-group-item">
+						<b>Supervisors</b> <a class="pull-right ssupervisors">{{c.supervisors}}</a>
+					</li>
+				</ul>
+				<div class="row">
+					<div class="col-xs-3">
+						<button href="#" class="btn btn-success btn-block" id="act{{c.id}}" onclick="forminit($(this).attr('id')); " data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+					</div>
+					<div class="col-xs-3">
+						<form method="POST" action="/portal/students/delete/{{c.id}}">
+							{%csrf_token%}
+							<button type="Submit" value="" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button>
+						</form>
+					</div>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+			<!-- /.box -->
+		</div>
+	</div>
+
+	{%endfor%}
+
+</div>
+<h3>Past Students</h3>
+<div class="row">
+	{%for c in paststudents%}
+	<div class="col-md-4">
+
+		<!-- Profile Image -->
+		<div class="box">
+			<div class="box-body box-profile" id="{{c.id}}ina">
+				<h3 class="profile-username text-center sname">{{c.name}}</h3>
+
+				<ul class="list-group list-group-unbordered">
+          <li class="list-group-item">
+						<b>Degree</b> <a class="pull-right sdegree"><span class="degreec">{%if c.degree is 1%}Ph.D.{%endif%}{%if c.degree is 2%}M.Tech.{%endif%}{%if c.degree is 3%}B.Tech.{%endif%}</span></a>
+					</li>
+
+					<li class="list-group-item">
+						<b>Thesis Title</b> <a class="pull-right sthesis">{{c.thesis_title}}</a>
+					</li>
+
+          <li class="list-group-item">
+						<b>Supervisors</b> <a class="pull-right ssupervisors">{{c.supervisors}}</a>
+					</li>
+        </ul>
+					<div class="col-xs-3">
+						<button href="#" class="btn btn-success btn-block" id="ina{{c.id}}" onclick="forminit($(this).attr('id')); " data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+					</div>
+					<div class="col-xs-3">
+						<form method="POST" action="/portal/students/delete/{{c.id}}">
+							{%csrf_token%}
+							<button type="Submit" value="" class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button>
+						</form>
+					</div>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+			<!-- /.box -->
+		</div>
+	</div>
+
+	{%endfor%}
+
+</div>
+
+{%endblock%}
+{%block customsc%}
+<script type="text/javascript">
+	function forminit(ide){
+
+		var x  = ide.slice(3);
+    var ids="";
+		if(ide.slice(0,3)==="act"){
+			var ids=x+'act';
+			$('.edit-form #id_completed').prop('checked', true);
+		}
+		else{
+			var ids=x+'ina';
+			$('.edit-form #id_completed').prop('checked', false);
+		}
+
+  		$('.edit-form #id_name').val($('#'+ids+' .sname')[0].innerHTML);
+		// $('.edit-form #id_degree').val($('#'+ids+' .degree')[0].innerHTML.replace("&amp;","&"));
+		$('.edit-form #id_thesis_title').val($('#'+ids+' .sthesis')[0].innerHTML);
+		$('.edit-form #id_supervisors').val($('#'+ids+' .ssupervisors')[0].innerHTML);
+		// $('.edit-form #id_url').val($('#'+ids+' .courseurl')[0]['href']);
+		if($('#'+ids+' .degreec')[0].innerHTML==="Ph.D.")
+			$('.edit-form #id_degree').val(1);
+    else if($('#'+ids+' .degreec')[0].innerHTML==="M.Tech.")
+      $('.edit-form #id_degree').val(2);
+		else $('.edit-form #id_degree').val(3);
+		$('#editformsrc').attr('action','/portal/students/edit/'+x);
+	}
+</script>
+{%endblock%}

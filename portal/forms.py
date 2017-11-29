@@ -60,7 +60,7 @@ class EducationForm(forms.ModelForm):
         model = Education
         fields = ('degree','desc','institute','year')
 
-class ProjetForm(forms.ModelForm):
+class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ('title','pi','copi','funding','startyear','endyear')
