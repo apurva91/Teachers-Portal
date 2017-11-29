@@ -14,21 +14,7 @@ while True:
     contents.append(line)
 text = ' '.join(contents)
 
-def language_analysis(text):
-    client=language.LanguageServiceClient()
-
-    document = types.Document(
-        content=text,
-        type=enums.Document.Type.PLAIN_TEXT
-    )
-    sentiment = client.analyze_sentiment(document=document).document_sentiment
-
-    global sent_score 
-    global sent_mag
-    sent_score=sentiment.score
-    sent_mag=sentiment.magnitude
-
-def entities_text(text):
+def entities_text(text,sent_score,sent_mag):
     """Detects entities in the text."""
     client = language.LanguageServiceClient()
 
@@ -60,15 +46,6 @@ def entities_text(text):
     post=""
     output=""
     for entity in entities:
-    #     if entity.type==4:
-    #         meet=1
-    #         eve=entity.name
-    #     if entity.type==2:
-    #         loc=entity.name
-    #     if entity.type==1:
-    #     	naam=entity.name
-    # if(meet==1):
-    # 	print("\n\nHey "+naam+",You have a " +eve+" at "+loc + "\n" )
         if entity.name.lower()=='review' or entity.name.lower()=='feedback':
             isReview=1
         if entity.name.lower()=='meeting':
@@ -93,7 +70,11 @@ def entities_text(text):
             output='You have 1 Positive review from '+naam
 
     if isMeeting==1:
-        output="Hey "+naam+",You have a " +eve+" at "+loc + " on 29/11/2017 "
+        if len(loc)>0:
+            output="Hey "+naam+",You have a " +eve+" at "+loc + " on 29/11/2017 "
+        else:
+            output="Hey "+naam+",You have a " +eve+ " on 29/11/2017 "
+
     if isDoubt==1:
         output='You have 1 doubt'
     if isPromotion==1 and sent_score>0.35:    
@@ -101,9 +82,17 @@ def entities_text(text):
      
     return output
 
+def Analyze(text):
+    client=language.LanguageServiceClient()
 
+    document = types.Document(
+        content=text,
+        type=enums.Document.Type.PLAIN_TEXT
+    )
+    sentiment = client.analyze_sentiment(document=document).document_sentiment
 
-language_analysis(text)
-entities_text(text)
-print(sent_score)
-print(sent_mag)
+    sent_score=sentiment.score
+    sent_mag=sentiment.magnitude
+    return entities_text(text,sent_score,sent_mag)
+
+print (Analyze(text))

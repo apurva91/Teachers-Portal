@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'students/$', views.list_all_students, name="list_all_students"),
     url(r'students/edit/(?P<id>[0-9]+)$', views.edit_student, name="edit_student"),
     url(r'students/delete/(?P<id>[0-9]+)$', views.delete_student, name="delete_student"),
-    url(r'^upload/$', views.simple_upload, name="upload_file"),
+    url(r'^upload/$', views.upload_analyze, name="upload_file"),
     url(r'^submitlink/$', views.submitLink, name="submit_file"),
     url(r'^newuser/$', views.create_new_user, name="create_new_user"),
 
