@@ -13,7 +13,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30, blank=True)
-    avatar = models.ImageField(blank=True)
+    avatar = models.ImageField(blank=True,default="1.jpg")
     birth_date = models.DateField(null=True, blank=True)
     designation = models.CharField(max_length=500, blank=True)
     office = models.CharField(max_length=500, blank=True)
@@ -81,3 +81,10 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+class QueryModel(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    message=models.CharField(max_length=500)
+    subject=models.CharField(max_length=50)
+    name=models.CharField(max_length=50)
+    email=models.EmailField(max_length=50)
