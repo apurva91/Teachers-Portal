@@ -60,7 +60,7 @@ class EducationForm(forms.ModelForm):
         model = Education
         fields = ('degree','desc','institute','year')
 
-class ProjectForm(forms.ModelForm):
+class ProjetForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ('title','pi','copi','funding','startyear','endyear')
@@ -69,6 +69,16 @@ class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = ('course_id','title','startdate','enddate','url','semester','active')
+
+class PublicationForm(forms.ModelForm):
+    class Meta:
+        model = Publication
+        fields = ('authors','title','journal')
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ('name','degree','thesis_title','supervisors','completed')
 
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
