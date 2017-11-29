@@ -89,6 +89,14 @@ class LinkForm(forms.Form):
     class Meta:
         fields=('link')
 
+class QueryForm(forms.Form):
+    name=forms.CharField(required=True)
+    email=forms.EmailField(required=True)
+    subject=forms.CharField(required=True)
+    message=forms.CharField(required=True)
+    class Meta:
+        fields=('name', 'email', 'subject', 'message')
+
 class NewUserForm(forms.Form):
     email=forms.EmailField(required=True)
     username=forms.CharField(required=True)

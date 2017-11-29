@@ -153,21 +153,26 @@ Projects | Teacher's Portal
 				<h3 class="profile-username text-center ptitle">{{c.title}}</h3>
 
 				<ul class="list-group list-group-unbordered">
+					
 					<li class="list-group-item">
 						<b>Project Incharge</b> <a class="pull-right ppi">{{c.pi}}</a>
 					</li>
+					{%if c.copi%}
 					<li class="list-group-item">
 						<b>Co-Incharge</b> <a class="pull-right pcopi">{{c.copi}}</a>
 					</li>
+					{%endif%}
 					<li class="list-group-item">
 						<b>Funding</b> <a class="pull-right pfunding">{{c.funding}}</a>
 					</li>
           <li class="list-group-item">
 						<b>Start Year</b> <a class="pull-right pstartyear">{{c.startyear}}</a>
 					</li>
+					{%if c.endyear%}
           <li class="list-group-item">
 						<b>End Year</b> <a class="pull-right pendyear">{{c.endyear}}</a>
 					</li>
+					{%endif%}
 				</ul>
 				<div class="row">
 				<div class="col-xs-10"></div>
