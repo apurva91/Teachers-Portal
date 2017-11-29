@@ -209,7 +209,7 @@ def Extract_Profile(content,user_id):
                 for idx,item2 in enumerate(item.split("</label>")):
                     if '<label>' in item2:
                         lis.append(item2 [item2.find('<label>')+len('<label>') : ])
-                
+
                 y = (item [item.find('<p>')+len('<p>') : ])
                 v = re.split("<br />|,",y)
                 lis.append(v[0])
@@ -256,7 +256,7 @@ def Extract_Project(content,user_id):
     for item in content.split("<!-- END SPONSORED RESEARCH PROJECTS SECTION -->"):
         if '<!-- START SPONSORED RESEARCH PROJECTS SECTION -->' in item:
             x+=  item [item.find('<!-- START SPONSORED RESEARCH PROJECTS SECTION -->')+len('<!-- START SPONSORED RESEARCH PROJECTS SECTION -->') : ]
-    lis=[]  
+    lis=[]
     pub=[]
     for item in x.split("</p>"):
         if '<p align="justify">' in item:
@@ -271,7 +271,7 @@ def Extract_Project(content,user_id):
             a =  item2.split('</strong>')[0][:-1]
             b = item2.split('</strong>')[1][1:]
             if a == "Project Title":
-                proj.title = b
+                proj.title = b[1:-1]
             elif a == "Co-PI":
                 proj.copi=b
             elif a == "PI":
@@ -323,7 +323,7 @@ def edit_course(request,id):
             course.url=course1.url
             tempuser = Profile.objects.get(user=request.user)
             if course.active and not course1.active:
-                tempuser.active_courses = tempuser.active_courses - 1
+                    tempuser.active_courses = tempuser.active_courses - 1
             elif course1.active and not course.active:
                 tempuser.active_courses = tempuser.active_courses + 1
             tempuser.save()
@@ -438,6 +438,102 @@ def delete_project(request,id):
 
         return redirect('/portal/projects/')
     return redirect('/portal/projects/')
+
+def list_all_publications(request):
+    if request.method == 'POST':
+        form = PublicationForm(request.POST)
+        if form.is_valid():
+            publication = form.save(commit=False)
+            publication.user=request.user
+            tempuser = Profile.objects.get(user=request.user)
+            tempuser.publications = tempuser.publications +1
+            tempuser.save()
+            publication.save()
+            return redirect('/portal/publications/')
+    else:
+        form = PublicationForm()
+    publications = Publication.objects.filter(Q(user=request.user)).order_by('-id')
+    # incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
+    return render(request, 'portal/publication.html', {'form': form, 'publications':publications})
+
+def edit_publication(request,id):
+    if request.method == 'POST':
+        form=PublicationForm(request.POST)
+        if form.is_valid():
+            publication = Publication.objects.get(id=id)
+            if publication.user.id != request.user.id:
+                return HttpResponse('404'+str(request.user)+str(publication.user))
+            publication1=form.save(commit=False)
+            publication.title=publication1.title
+            publication.authors=publication1.authors
+            publication.journal=publication1.journal
+            publication.save()
+            return redirect('/portal/publications/')
+    return redirect('/portal/publications/')
+
+def delete_publication(request,id):
+    if request.method == 'POST':
+        publication = Publication.objects.get(id=id)
+        if publication.user != request.user:
+            return HttpResponse('Dont Try To Mess With The System')
+        # if projects.active:
+        #     tempuser.active_projects = tempuser.active_projects -1
+        tempuser = Profile.objects.get(user=request.user)
+        tempuser.publications = tempuser.publications -1
+        tempuser.save()
+        publication.delete()
+
+        return redirect('/portal/publications/')
+    return redirect('/portal/publications/')
+
+def list_all_students(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.user=request.user
+            tempuser = Profile.objects.get(user=request.user)
+            tempuser.students = tempuser.students +1
+            tempuser.save()
+            student.save()
+            return redirect('/portal/students/')
+    else:
+        form = StudentForm()
+    students = Student.objects.filter(Q(user=request.user)).order_by('-id')
+    # incourse = Course.objects.filter(Q(user=request.user) & Q(active=0)).order_by('-enddate')
+    return render(request, 'portal/student.html', {'form': form, 'students':students})
+
+def edit_student(request,id):
+    if request.method == 'POST':
+        form=StudentForm(request.POST)
+        if form.is_valid():
+            student = Student.objects.get(id=id)
+            if student.user.id != request.user.id:
+                return HttpResponse('404'+str(request.user)+str(student.user))
+            student1=form.save(commit=False)
+            student.name=student1.name
+            student.degree=student1.degree
+            student.thesis_title=student1.thesis_title
+            student.supervisors=student1.supervisors
+            student.completed=student1.completed
+            student.save()
+            return redirect('/portal/students/')
+    return redirect('/portal/students/')
+
+def delete_student(request,id):
+    if request.method == 'POST':
+        student = Student.objects.get(id=id)
+        if student.user != request.user:
+            return HttpResponse('Dont Try To Mess With The System')
+        # if projects.active:
+        #     tempuser.active_projects = tempuser.active_projects -1
+        tempuser = Profile.objects.get(user=request.user)
+        tempuser.students = tempuser.students -1
+        tempuser.save()
+        student.delete()
+
+        return redirect('/portal/students/')
+    return redirect('/portal/students/')
 
 def simple_upload(request):
     if request.method == 'POST' and request.FILES['myfile']:
