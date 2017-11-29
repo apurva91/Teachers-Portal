@@ -475,6 +475,14 @@ def edit_publication(request,id):
             return redirect('/portal/publications/')
     return redirect('/portal/publications/')
 
+def notivi(request):
+    noti=Notification.objects.filter(user=request.user)
+    user=Profile.objects.get(user=request.user)
+    user.notif=0
+    user.save()
+    return render(request, 'portal/student.html', {'noti':noti})
+
+
 def delete_publication(request,id):
     if request.method == 'POST':
         publication = Publication.objects.get(id=id)
@@ -625,5 +633,10 @@ def Analyze(text):
 def upload_analyze(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
-        return HttpResponse (Analyze(myfile.read().decode("utf-8").replace(":"," ").replace("-"," ")))
+        user=Profile.objects.get(user=request.user)
+        Notif = Analyze(myfile.read().decode("utf-8").replace(":"," ").replace("-"," ").replace("\n"," ").replace("\t"," ").replace("\r"," "))
+        noti=Notification(user=user,message=Notif,is_read=0)
+        user.notif = user.notif + 1
+        noti.save()
+        user.save()
     return render(request, 'portal/upload.html')
