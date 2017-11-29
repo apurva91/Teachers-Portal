@@ -633,10 +633,10 @@ def Analyze(text):
 def upload_analyze(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
-        user=Profile.objects.get(user=request.user)
+        user=Profile.objects.filter(user=request.user)
         Notif = Analyze(myfile.read().decode("utf-8").replace(":"," ").replace("-"," ").replace("\n"," ").replace("\t"," ").replace("\r"," "))
         noti=Notification(user=user,message=Notif,is_read=0)
         user.notif = user.notif + 1
         noti.save()
         user.save()
-    return render(request, 'portal/upload.html')
+        return render(request, 'portal/upload.html')
