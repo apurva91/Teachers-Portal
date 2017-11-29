@@ -161,6 +161,63 @@ def CrawlGet(start,end,code):
             urls.append(item [item.find(start)+len(start) : ])
     return urls
 
+def Extract_Stud(content,user_id):
+    x=""
+    user=Profile.objects.get(user=user_id)
+    for item in content.split("<!-- END PHD STUDENT ONGOING SECTION -->"):
+        if '<!-- START PHD STUDENT ONGOING SECTION -->' in item:
+            x+=  item [item.find('<!-- START PHD STUDENT ONGOING SECTION -->')+len('<!-- START PHD STUDENT ONGOING SECTION -->') : ]
+    lis=[]  
+    pub=[]
+    pub = CrawlGet('<li>','</li>',x)
+    for item in pub:
+        pli=Student(name=item,completed=False,degree=1)
+        pli.user=user.user
+        user.students = user.students + 1
+        pli.save()
+    x=""
+    for item in content.split("<!-- END MTech STUDENT ONGOING SECTION -->"):
+        if '<!-- START MTech STUDENT ONGOING SECTION -->' in item:
+            x+=  item [item.find('<!-- START MTech STUDENT ONGOING SECTION -->')+len('<!-- START MTech STUDENT ONGOING SECTION -->') : ]
+
+    pub = CrawlGet('<li>','</li>',x)
+    for item in pub:
+        pli=Student(name=item,completed=False,degree=2)
+        user.students = user.students + 1
+        pli.user=user.user
+        pli.save()
+    x=""
+    for item in content.split("<!-- END PHD STUDENT COMPLETED SECTION -->"):
+        if '<!-- START PHD STUDENT COMPLETED SECTION -->' in item:
+            x+=  item [item.find('<!-- START PHD STUDENT COMPLETED SECTION -->')+len('<!-- START PHD STUDENT COMPLETED SECTION -->') : ]
+
+    pub = CrawlGet('<li>','</li>',x)
+    for item in pub:
+        pli=Student(name=item,completed=False,degree=1)
+        pli.user=user.user
+        pli.thesis_title=item.split("</em>")[3].split("&diam;")[0][2:-1]
+        pli.name=item.split("</em>")[2].split("&diam;")[0][1:]
+        pli.supervisors=item.split("</em>")[1].split("&diam;")[0][1:]
+        user.students = user.students + 1
+        pli.save()
+
+    x=""
+    for item in content.split("<!-- END MTech STUDENT COMPLETED SECTION -->"):
+        if '<!-- START MTech STUDENT COMPLETED SECTION -->' in item:
+            x+=  item [item.find('<!-- START MTech STUDENT COMPLETED SECTION -->')+len('<!-- START MTech STUDENT COMPLETED SECTION -->') : ]
+
+    pub = CrawlGet('<li>','</li>',x)
+    for item in pub:
+        pli=Student(name=item,completed=False,degree=2)
+        pli.user=user.user
+        pli.thesis_title=item.split("</em>")[3].split("&diam;")[0][2:-1]
+        pli.name=item.split("</em>")[2].split("&diam;")[0][1:]
+        pli.supervisors=item.split("</em>")[1].split("&diam;")[0][1:]
+        user.students = user.students + 1
+        pli.save()
+    user.save()
+
+
 def Extract_Course(content,user_id):
     x=""
     y=""
@@ -231,6 +288,28 @@ def Extract_Profile(content,user_id):
     user.phone=lis[2]
     user.save()
 
+def Extract_Pub(content,user_id):
+    x=""
+    for item in content.split("<!-- END Publications SECTION -->"):
+        if '<!-- START Publications SECTION -->' in item:
+            x+=  item [item.find('<!-- START Publications SECTION -->')+len('<!-- START Publications SECTION -->') : ]
+    lis=[]  
+    pub=[]
+    for item in x.split("</p>"):
+        if '<p align="justify">' in item:
+            pub.append(item [item.find('<p align="justify">')+len('<p align="justify">') : ])
+    y=""
+    user=Profile.objects.get(user=user_id)
+    for idx,item in enumerate(pub):
+        pubs = Publication()
+        user.publications = user.publications + 1
+        pubs.user = user.user
+        pubs.authors = item.split('"')[0][:-2]
+        pubs.title = item.split('"')[1]
+        pubs.journal = item.split(item.split('"')[1])[1][3:]
+        pubs.save()
+    user.save()
+
 def Extract_Edu(content,user_id):
     x=""
     for item in content.split("<!-- END ACADEMIC PROFILE SECTION -->"):
@@ -294,10 +373,12 @@ def Extractor(url,user_id):
     content = response.read()
     content=str(content)
     # content = content.encode("utf8")
-    Extract_Course(content,user_id)
     Extract_Profile(content,user_id)
+    Extract_Course(content,user_id)
     Extract_Edu(content,user_id)
     Extract_Project(content,user_id)
+    Extract_Pub(content,user_id)
+    Extract_Stud(content,user_id)
 
 def submitLink(request):
     if request.method == 'POST':
@@ -560,14 +641,22 @@ def simple_upload(request):
     return render(request, 'portal/upload.html')
 
 def entities_text(text,sent_score,sent_mag):
+    """Detects entities in the text."""
     client = language.LanguageServiceClient()
 
+    # if isinstance(text, six.binary_type):
+    #     text = text.decode('utf-8')
+
+    # Instantiates a plain text document.
     document = types.Document(
         content=text,
         type=enums.Document.Type.PLAIN_TEXT)
 
+    # Detects entities in the document. You can also analyze HTML with:
+    #   document.type == enums.Document.Type.HTML
     entities = client.analyze_entities(document).entities
 
+    # entity types from enums.Entity.Type
     entity_type = ('UNKNOWN', 'PERSON', 'LOCATION', 'ORGANIZATION',
                    'EVENT', 'WORK_OF_ART', 'CONSUMER_GOOD', 'OTHER')
     
@@ -601,10 +690,11 @@ def entities_text(text,sent_score,sent_mag):
             post=entity.name
 
     if isReview==1:
+
         if sent_score<0:
-            output='You have a Critical Review from '+naam
-        if sent_score>0.40 and sent_mag>1:
-            output='You have 1 Positive review from '+naam
+            output='You have a Critical Review '
+        if sent_score>0:
+            output='You have a Positive Review '
 
     if isMeeting==1:
         if len(loc)>0:
@@ -613,7 +703,7 @@ def entities_text(text,sent_score,sent_mag):
             output="Hey "+naam+",You have a " +eve+ " on 29/11/2017 "
 
     if isDoubt==1:
-        output='You have 1 doubt'
+        output='You have 1 new doubt'
     if isPromotion==1 and sent_score>0.35:    
         output='Congratulations,'+naam+' you have been promoted to '+post
      
@@ -621,22 +711,26 @@ def entities_text(text,sent_score,sent_mag):
 
 def Analyze(text):
     client=language.LanguageServiceClient()
+
     document = types.Document(
         content=text,
         type=enums.Document.Type.PLAIN_TEXT
     )
     sentiment = client.analyze_sentiment(document=document).document_sentiment
+
     sent_score=sentiment.score
     sent_mag=sentiment.magnitude
-    return entities_text(text,sent_score,sent_mag)
+    return entities_text(text,sent_score,sent_mag) 
 
 def upload_analyze(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
-        user=Profile.objects.filter(user=request.user)
-        Notif = Analyze(myfile.read().decode("utf-8").replace(":"," ").replace("-"," ").replace("\n"," ").replace("\t"," ").replace("\r"," "))
-        noti=Notification(user=user,message=Notif,is_read=0)
-        user.notif = user.notif + 1
-        noti.save()
-        user.save()
-        return render(request, 'portal/upload.html')
+        user=Profile.objects.get(user=request.user)
+        Notif = Analyze(myfile.read().decode("utf-8"))
+        # noti=Notification(user=user,message=Notif,is_read=0)
+        # user.notif = user.notif + 1
+        # noti.save()
+        # user.save()
+        return HttpResponse(Notif)
+    return render(request, 'portal/upload.html')
+

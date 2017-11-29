@@ -64,10 +64,11 @@ def entities_text(text,sent_score,sent_mag):
             post=entity.name
 
     if isReview==1:
+
         if sent_score<0:
-            output='You have a Critical Review from '+naam
-        if sent_score>0.40 and sent_mag>1:
-            output='You have 1 Positive review from '+naam
+            output='You have a Critical Review '
+        if sent_score>0:
+            output='You have a Positive Review '
 
     if isMeeting==1:
         if len(loc)>0:
@@ -76,7 +77,7 @@ def entities_text(text,sent_score,sent_mag):
             output="Hey "+naam+",You have a " +eve+ " on 29/11/2017 "
 
     if isDoubt==1:
-        output='You have 1 doubt'
+        output='You have 1 new doubt'
     if isPromotion==1 and sent_score>0.35:    
         output='Congratulations,'+naam+' you have been promoted to '+post
      
@@ -94,5 +95,4 @@ def Analyze(text):
     sent_score=sentiment.score
     sent_mag=sentiment.magnitude
     return entities_text(text,sent_score,sent_mag)
-
 print (Analyze(text))

@@ -108,7 +108,7 @@ class Student(models.Model):
         degree=models.IntegerField(choices=DEGREE, default=1)
         thesis_title=models.CharField(max_length=100,blank=True)
         supervisors=models.CharField(max_length=80,blank=True)
-        completed=models.BooleanField(default=True)
+        completed=models.BooleanField(default=True,blank=True)
         def __str__(self):
             return self.name
 
