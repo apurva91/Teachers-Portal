@@ -1,5 +1,4 @@
 # Teachers-Portal
 
-# Choose Template (again, a unique one)
-# Link it with Django backend
-# We will have to create a website that create a sub-website (not so easy)
+# Error in this line in many functions (was not there earlier) : tempuser = "Profile.objects.get(user=request.user)"
+# Publications working, from admin panel.
