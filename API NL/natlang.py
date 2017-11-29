@@ -58,14 +58,8 @@ def entities_text(text):
     eve=""
     course=""
     post=""
+    output=""
     for entity in entities:
-        print('=' * 20)
-        print(u'{:<16}: {}'.format('name', entity.name))
-        print(u'{:<16}: {}'.format('type', entity_type[entity.type]))
-        print(u'{:<16}: {}'.format('metadata', entity.metadata))
-        print(u'{:<16}: {}'.format('salience', entity.salience))
-        print(u'{:<16}: {}'.format('wikipedia_url',
-              entity.metadata.get('wikipedia_url', '-')))
     #     if entity.type==4:
     #         meet=1
     #         eve=entity.name
@@ -94,19 +88,18 @@ def entities_text(text):
 
     if isReview==1:
         if sent_score<0:
-            print('You have a Critical Review from '+naam)
+            output='You have a Critical Review from '+naam
         if sent_score>0.40 and sent_mag>1:
-            print('You have 1 Positive review from '+naam)
+            output='You have 1 Positive review from '+naam
 
     if isMeeting==1:
-        print("Hey "+naam+",You have a " +eve+" at "+loc + " on 29/11/2017 ")
+        output="Hey "+naam+",You have a " +eve+" at "+loc + " on 29/11/2017 "
     if isDoubt==1:
-        print('You have 1 doubt')
-    if isPromotion==1 and sent_score>0.35:
-        print(naam)
-        print('Congratulations,'+naam+' you have been promoted to '+post)
+        output='You have 1 doubt'
+    if isPromotion==1 and sent_score>0.35:    
+        output='Congratulations,'+naam+' you have been promoted to '+post
      
-
+    return output
 
 
 

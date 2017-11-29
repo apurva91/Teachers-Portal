@@ -124,10 +124,15 @@ USE_TZ = True
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 MEDIA_URL = '/media/'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
 GOOGLE_RECAPTCHA_SITE_KEY="6LdfzzcUAAAAAFbZb4nuuMRtWyfN57FDrcX7aDDX"
 GOOGLE_RECAPTCHA_SECRET_KEY="6LdfzzcUAAAAACBLIL0jrLqyatnrroXgB_VfIFPw"
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '6013e4a77adfee'
+EMAIL_HOST_PASSWORD = 'bb54d20e4f9949'
+EMAIL_PORT = '2525'

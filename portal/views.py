@@ -8,22 +8,20 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import *
 from .models import *
 from django.db.models import Q
-import requests
-import tempfile, os
+import requests, tempfile, os, random, string
 from django.core import files
-import random, string
 
 def PWDGen(length):
    letters = string.ascii_lowercase + string.ascii_uppercase + string.digits
    return ''.join(random.choice(letters) for i in range(length))
 
-# def PassReset(email):
-#     client = requests.session()
-#     client.get('http://localhost:8000/portal/forgot')
-#     csrftoken = client.cookies['csrftoken']
-#     data = dict(email=email,csrfmiddlewaretoken=csrftoken)
-#     r = client.post('http://localhost:8000/portal/forgot',data=data)
-#     return r
+def PassReset(email):
+    client = requests.session()
+    client.get('http://localhost:8000/portal/forgot/')
+    csrftoken = client.cookies['csrftoken']
+    data = dict(email=email,csrfmiddlewaretoken=csrftoken)
+    r = client.post('http://localhost:8000/portal/forgot/',data=data)
+    return r
 
 def create_new_user(request):
     if request.method == 'POST':
@@ -49,10 +47,11 @@ def create_new_user(request):
                 return render(request, 'registration/newuser.html', {'error_message': 'Username Already Exists'})
             if User.objects.filter(email=email).count() is not 0:
                 return render(request, 'registration/newuser.html', {'error_message': 'Email Already Registered'})
-            user = User(username=username,password=PWDGen(32),email=email)
+            user = User.objects.create_user(username=username,password=PWDGen(32),email=email)
             user.save()
             profile = Profile(user=user,name=name,webmail=email)
             profile.save()
+            x = PassReset(email)
             return redirect('/portal/newuser/')
         else:
             return render(request, 'registration/newuser.html', {'error_message': 'Invalid Captcha.'})
@@ -290,10 +289,10 @@ def Extractor(url,user_id):
     content = response.read()
     content=str(content)
     # content = content.encode("utf8")
-    # Extract_Course(content,user_id)
-    # Extract_Profile(content,user_id)
-    # Extract_Edu(content,user_id)
-    # Extract_Project(content,user_id)
+    Extract_Course(content,user_id)
+    Extract_Profile(content,user_id)
+    Extract_Edu(content,user_id)
+    Extract_Project(content,user_id)
 
 def submitLink(request):
     if request.method == 'POST':
