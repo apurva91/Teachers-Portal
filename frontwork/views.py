@@ -35,9 +35,11 @@ def teacher(request,username):
 	user = Profile.objects.get(user__username=username)
 	suc_message=""
 	error_message=''
-	course=Course.objects.filter(Q(active=True) & Q(user=user.id)).order_by('-semester')
-	education=Education.objects.filter(Q(user=user.id)).order_by('-year')
-
+	course=Course.objects.filter(Q(active=True) & Q(user=user.user.id)).order_by('-semester')
+	education=Education.objects.filter(Q(user=user.user.id)).order_by('-year')
+	projects=Project.objects.filter(Q(user=user.user.id)).order_by('-endyear')
+	publications=Publication.objects.filter(Q(user=user.user.id)).order_by('-id')
+	students=Student.objects.filter(Q(user=user.user.id)).order_by('-id')
 	if request.method == 'POST':
 		''' Begin reCAPTCHA validation '''
 		recaptcha_response = request.POST['g-recaptcha-response']
@@ -62,9 +64,9 @@ def teacher(request,username):
 			query.user=user.user
 			query.save()
 			suc_message='<i class="fa fa-check"></i>Your message was sent, thank you!'
-			return render(request,'teacher.html',{'user':user,'course':course,'education':education,'suc_message':suc_message,error_message:''})	
+			return render(request,'teacher.html',{'user':user,'course':course,'education':education,'education':education,'projects':projects,'publications':publications,'suc_message':suc_message,error_message:''})
 		elif len(request.POST['name']) > 1:
 			error_message = '<i class="fa fa-exclamation-circle"></i> Invalid Captcha.'
-			return render(request,'teacher.html',{'user':user,'course':course,'education':education,'error_message':error_message,'suc_message':""})
+			return render(request,'teacher.html',{'user':user,'course':course,'education':education,'education':education,'projects':projects,'publications':publications,'error_message':error_message,'suc_message':""})
 	else:
-		return render(request,'teacher.html',{'user':user,'course':course,'education':education,'error_message':"",'suc_message':""})
+		return render(request,'teacher.html',{'user':user,'course':course,'education':education,'projects':projects,'publications':publications,'students':students,'error_message':"",'suc_message':""})

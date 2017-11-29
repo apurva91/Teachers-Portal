@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+user.<!DOCTYPE html>
 <!--[if IE 8 ]><html class="no-js oldie ie8" lang="en"> <![endif]-->
 <!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
@@ -8,7 +8,7 @@
    ================================================== -->
    <meta charset="utf-8">
    <title>{{user.name}}</title>
-   <meta name="description" content="">  
+   <meta name="description" content="">
    <meta name="author" content="">
 
    <!-- mobile specific metas
@@ -17,12 +17,12 @@
    {%load static%}
  	<!-- CSS
  	================================================== -->
- 	<link rel="stylesheet" href="{%static 'Public/css/base1.css'%}">  
+ 	<link rel="stylesheet" href="{%static 'Public/css/base1.css'%}">
  	<link rel="stylesheet" href="{%static 'Public/css/main1.css'%}">
- 	<link rel="stylesheet" href="{%static 'Public/css/vendor.css'%}">     
+ 	<link rel="stylesheet" href="{%static 'Public/css/vendor.css'%}">
 
    <!-- script
-   ================================================== -->   
+   ================================================== -->
    <script src="{%static 'Public/js/modernizr.js'%}"></script>
    <script src="{%static 'Public/js/pace.min.js'%}"></script>
 
@@ -35,9 +35,9 @@
 
 <body id="top">
 
-	<!-- header 
+	<!-- header
 	================================================== -->
-	<header>   	
+	<header>
 		<div class="row">
 
 			<div class="top-bar">
@@ -45,7 +45,7 @@
 
 				<div class="logo">
 					<a href="index.html">Menu</a>
-				</div>		      
+				</div>
 
 				<nav id="main-nav-wrap">
 					<ul class="main-navigation">
@@ -53,21 +53,21 @@
 						<li><a class="smoothscroll"  href="#about" title="">About</a></li>
 						<li><a class="smoothscroll"  href="#resume" title="">Teaching</a></li>
 						<li><a class="smoothscroll"  href="#portfolio" title="">Students</a></li>
-						<li><a class="smoothscroll"  href="#services" title="">Publications</a></li>					
-						<li><a class="smoothscroll"  href="#contact" title="">Recognitions</a></li>	
+						<li><a class="smoothscroll"  href="#services" title="">Publications</a></li>
+						<li><a class="smoothscroll"  href="#contact" title="">Recognitions</a></li>
 
 					</ul>
-				</nav>    		
-			</div> <!-- /top-bar --> 
+				</nav>
+			</div> <!-- /top-bar -->
 
-		</div> <!-- /row --> 		
+		</div> <!-- /row -->
 	</header> <!-- /header -->
 
 	<!-- intro section
 	================================================== -->
-	<section id="intro">   
+	<section id="intro">
 
-		<div class="intro-overlay"></div>	
+		<div class="intro-overlay"></div>
 
 		<div class="intro-content">
 			<div class="row">
@@ -78,30 +78,30 @@
 					<h1>I'm {{user.name}}</h1>
 
 					<p class="intro-position">
-						<span>{{user.designation}}</span> 
+						<span>{{user.designation}}</span>
 					</p>
 
 					<a class="button stroke smoothscroll" href="#about" title="">More About Me</a>
 
-				</div>  
+				</div>
 
-			</div>   		 		
-		</div> <!-- /intro-content --> 
+			</div>
+		</div> <!-- /intro-content -->
 
-		<ul class="intro-social">        
+		<ul class="intro-social">
 			<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 			<li><a href="#"><i class="fa fa-behance"></i></a></li>
 			<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 			<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
 			<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-		</ul> <!-- /intro-social -->      	
+		</ul> <!-- /intro-social -->
 
 	</section> <!-- /intro -->
 
 
    <!-- about section
    ================================================== -->
-   <section id="about">  
+   <section id="about">
 
    	<div class="row section-intro">
    		<div class="col-twelve">
@@ -114,9 +114,9 @@
    				<img src="/media/{{user.avatar}}" alt="Profile Picture">
 
    				<p class="lead">I'm a {{user.designation}} here at IIT Guwahati.My Research Interests are {{user.research}}.</p>
-   			</div>   			
+   			</div>
 
-   		</div>   		
+   		</div>
    	</div> <!-- /section-intro -->
 
    	<div class="row about-content">
@@ -176,7 +176,7 @@
    					<strong>Wordpress</strong>
    				</li>
 
-   			</ul> <!-- /skill-bars -->		
+   			</ul> <!-- /skill-bars -->
 
    		</div>
 
@@ -186,11 +186,11 @@
    		<div class="col-twelve">
 
    			<a href="#contact" title="Hire Me" class="button stroke smoothscroll">Get in Touch</a>
-   			
-   		</div>   		
+
+   		</div>
    	</div>
 
-   </section> <!-- /process-->    
+   </section> <!-- /process-->
 
 
    <!-- resume Section
@@ -205,8 +205,8 @@
 
    			<p class="lead"></p>
 
-   		</div>   		
-   	</div> <!-- /section-intro--> 
+   		</div>
+   	</div> <!-- /section-intro-->
 
    	<div class="row resume-timeline">
 
@@ -250,14 +250,14 @@
 
    				</div>
 
-   			</div> 
-   			{%endfor%}	
+   			</div>
+   			{%endfor%}
 
 
    		</div> <!-- /col-twelve -->
-   		
+
    	</div> <!-- /resume-timeline -->
-   	
+
    	<div class="row resume-timeline">
 
    		<div class="col-twelve resume-header">
@@ -291,14 +291,14 @@
    								<p>{{e.desc}}</p>
    							</div>
 
-   						</div>	
+   						</div>
    						{%endfor%}
 
 
 
 
 
-   					</div> <!-- /timeline-wrap -->   			
+   					</div> <!-- /timeline-wrap -->
 
    				</div> <!-- /col-twelve -->
 
@@ -319,8 +319,8 @@
 
 				<p class="lead"></p>
 
-			</div>   		
-		</div> <!-- /section-intro--> 
+			</div>
+		</div> <!-- /section-intro-->
 
 		<div class="row portfolio-content">
 
@@ -332,31 +332,31 @@
 					<div class="bgrid folio-item">
 						<div class="item-wrap">
 							<img src="{%static 'Public/images/portfolio/liberty.jpg'%}" alt="Liberty">
-							<a href="#modal-01" class="overlay">	                  	           
+							<a href="#modal-01" class="overlay">
 								<div class="folio-item-table">
 									<div class="folio-item-cell">
-										<h3 class="folio-title">Publications</h3>	     					    
+										<h3 class="folio-title">Publications</h3>
 										<span class="folio-types">
 											Publications
 										</span>
-									</div>	                      	
-								</div>                    
+									</div>
+								</div>
 							</a>
-						</div>	               
+						</div>
 					</div> <!-- /folio-item -->
 
 					<div class="bgrid folio-item">
 						<div class="item-wrap">
 							<img src="{%static 'Public/images/portfolio/shutterbug.jpg'%}" alt="Shutterbug">
-							<a href="#modal-02" class="overlay">              		                  
+							<a href="#modal-02" class="overlay">
 								<div class="folio-item-table">
 									<div class="folio-item-cell">
-										<h3 class="folio-title">Projects</h3>	     					    
+										<h3 class="folio-title">Projects</h3>
 										<span class="folio-types">
 											Projects
-										</span>		     		
-									</div> 	                      	
-								</div>                    
+										</span>
+									</div>
+								</div>
 							</a>
 						</div>
 					</div> <!-- /folio-item -->
@@ -364,15 +364,15 @@
 					<div class="bgrid folio-item">
 						<div class="item-wrap">
 							<img src="{%static 'Public/images/portfolio/clouds.jpg'%}"alt="Clouds">
-							<a href="#modal-03" class="overlay">             		                  
+							<a href="#modal-03" class="overlay">
 								<div class="folio-item-table">
 									<div class="folio-item-cell">
-										<h3 class="folio-title">Projects</h3>	     					    
+										<h3 class="folio-title">Projects</h3>
 										<span class="folio-types">
 											Projects
-										</span>		     		
-									</div> 	                      	
-								</div>                    
+										</span>
+									</div>
+								</div>
 							</a>
 						</div>
 					</div> <!-- /folio-item -->
@@ -380,31 +380,31 @@
 					<div class="bgrid folio-item">
 						<div class="item-wrap">
 							<img src="{%static 'Public/images/portfolio/beetle.jpg'%}" alt="Beetle">
-							<a href="#modal-04" class="overlay">                  	                 
+							<a href="#modal-04" class="overlay">
 								<div class="folio-item-table">
 									<div class="folio-item-cell">
-										<h3 class="folio-title">Students</h3>	     					    
+										<h3 class="folio-title">Students</h3>
 										<span class="folio-types">
 											Students
-										</span>		     		
-									</div>  	                      	
-								</div>                    
+										</span>
+									</div>
+								</div>
 							</a>
 						</div>
-					</div> <!-- /folio-item -->     
+					</div> <!-- /folio-item -->
 
 					<div class="bgrid folio-item">
 						<div class="item-wrap">
 							<img src="{%static 'Public/images/portfolio/lighthouse.jpg'%}" alt="Lighthouse">
-							<a href="#modal-05" class="overlay">             		                  
+							<a href="#modal-05" class="overlay">
 								<div class="folio-item-table">
 									<div class="folio-item-cell">
-										<h3 class="folio-title">Achievements</h3>	     					    
+										<h3 class="folio-title">Achievements</h3>
 										<span class="folio-types">
 											Achievements
-										</span>		     		
-									</div> 	                      	
-								</div>                    
+										</span>
+									</div>
+								</div>
 							</a>
 						</div>
 					</div> <!-- /folio-item -->
@@ -415,135 +415,142 @@
 							<a href="#modal-06" class="overlay">
 								<div class="folio-item-table">
 									<div class="folio-item-cell">
-										<h3 class="folio-title">Others</h3>	     					    
+										<h3 class="folio-title">Others</h3>
 										<span class="folio-types">
 											Others
-										</span>		     		
-									</div>	                      	
-								</div>                    
+										</span>
+									</div>
+								</div>
 							</a>
 						</div>
-					</div> <!-- /folio-item -->   
+					</div> <!-- /folio-item -->
 
 	            <!-- modal popups - begin
 	            ============================================================= -->
-	            <div id="modal-01" class="popup-modal slider mfp-hide">	
+	            <div id="modal-01" class="popup-modal slider mfp-hide">
 
-	            	<div class="media">
+	            	<!-- <div class="media">
 	            		<img src="{%static 'Public/images/portfolio/modals/m-liberty.jpg'%}" alt="" />
-	            	</div>      	
+	            	</div> -->
 
 	            	<div class="description-box">
-	            		<h4>Liberty</h4>		      
-	            		<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-
-	            		<div class="categories">Web Development</div>			               
+                  <div class="categories">My Projects</div>
+                  {% for pub in publications %}
+	            		<h4>{{pub.title}}</h4>
+	            		<p>Authors: {{pub.authors}}</p>
+	            		<p>Published in:{{pub.journal}}</p>
+                  {% endfor %}
 	            	</div>
 
 	            	<div class="link-box">
-	            		<a href="http://www.behance.net">Details</a>
+	            		<!-- <a href="http://www.behance.net">Details</a> -->
 	            		<a href="#" class="popup-modal-dismiss">Close</a>
-	            	</div>		      
+	            	</div>
 
 	            </div> <!-- /modal-01 -->
 
-	            <div id="modal-02" class="popup-modal slider mfp-hide">	
+	            <div id="modal-02" class="popup-modal slider mfp-hide">
 
-	            	<div class="media">
+	            	<!-- <div class="media">
 	            		<img src="{%static 'Public/images/portfolio/modals/m-shutterbug.jpg'%}" alt="" />
-	            	</div>      	
+	            	</div> -->
 
 	            	<div class="description-box">
-	            		<h4>Shutterbug</h4>		      
-	            		<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-
-	            		<div class="categories">Web Design</div>			               
+                  <div class="categories">Projects</div>
+                  <!-- {% for pr in projects %}
+	            		<h4>{{pr.title}}</h4>
+	            		<p>Project Incharge: {{pr.pi}}</p>
+	            		<p>Co Incharge: {{pr.copi}}</p>
+                  <p>Sponsor: {{pr.funding}}</p>
+                  <p>Start Year: {{pr.startyear}}</p>
+                  <p>End Year: {{pr.endyear}}</p>
+                  {% endfor %} -->
 	            	</div>
 
 	            	<div class="link-box">
-	            		<a href="http://www.behance.net">Details</a>
+	            		<!-- <a href="http://www.behance.net">Details</a> -->
 	            		<a href="#" class="popup-modal-dismiss">Close</a>
-	            	</div>		      
+	            	</div>
 
 	            </div> <!-- /modal-02 -->
 
-	            <div id="modal-03" class="popup-modal slider mfp-hide">	
+	            <div id="modal-03" class="popup-modal slider mfp-hide">
 
 	            	<div class="media">
 	            		<img src="{%static 'Public/images/portfolio/modals/m-clouds.jpg'%}" alt="" />
-	            	</div>      	
+	            	</div>
 
 	            	<div class="description-box">
-	            		<h4>Clouds</h4>		      
+	            		<h4>Clouds</h4>
 	            		<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
 
-	            		<div class="categories">Web Design</div>			               
+	            		<div class="categories">Web Design</div>
 	            	</div>
 
 	            	<div class="link-box">
 	            		<a href="http://www.behance.net">Details</a>
 	            		<a href="#" class="popup-modal-dismiss">Close</a>
-	            	</div>		      
+	            	</div>
 
 	            </div> <!-- /modal-03 -->
 
-	            <div id="modal-04" class="popup-modal slider mfp-hide">	
+	            <div id="modal-04" class="popup-modal slider mfp-hide">
 
 	            	<div class="media">
 	            		<img src="{%static 'Public/images/portfolio/modals/m-beetle.jpg'%}" alt="" />
-	            	</div>      	
+	            	</div>
 
 	            	<div class="description-box">
-	            		<h4>Beetle</h4>		      
+	            		<h4>Beetle</h4>
 	            		<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
 
-	            		<div class="categories">Branding</div>			               
+	            		<div class="categories">Branding</div>
 	            	</div>
 
 	            	<div class="link-box">
 	            		<a href="http://www.behance.net">Details</a>
 	            		<a href="#" class="popup-modal-dismiss">Close</a>
-	            	</div>		      
+	            	</div>
 
 	            </div> <!-- /modal-04 -->
 
-	            <div id="modal-05" class="popup-modal slider mfp-hide">	
+	            <div id="modal-05" class="popup-modal slider mfp-hide">
 
 	            	<div class="media">
 	            		<img src="{%static 'Public/images/portfolio/modals/m-lighthouse.jpg'%}" alt="" />
-	            	</div>      	
+	            	</div>
 
 	            	<div class="description-box">
-	            		<h4>Lighthouse</h4>		      
+	            		<h4>Lighthouse</h4>
 	            		<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
 
-	            		<div class="categories">Web Development</div>			               
+	            		<div class="categories">Web Development</div>
 	            	</div>
 
 	            	<div class="link-box">
 	            		<a href="http://www.behance.net">Details</a>
 	            		<a href="#" class="popup-modal-dismiss">Close</a>
-	            	</div>		      
+	            	</div>
 
 	            </div> <!-- /modal-05 -->
 
-	            <div id="modal-06" class="popup-modal slider mfp-hide">	
+	            <div id="modal-06" class="popup-modal slider mfp-hide">
 
 	            	<div class="media">
 	            		<img src="{%static 'Public/images/portfolio/modals/m-salad.jpg'%}" alt="" />
-	            	</div>      	
+	            	</div>
 
 	            	<div class="description-box">
-	            		<h4>Salad</h4>		      
+	            		<h4>Salad</h4>
 	            		<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
 
-	            		<div class="categories">Branding</div>			               
+	            		<div class="categories">Branding</div>
 	            	</div>
 
 	            	<div class="link-box">
 	            		<a href="http://www.behance.net">Details</a>
 	            		<a href="#" class="popup-modal-dismiss">Close</a>
-	            	</div>		      
+	            	</div>
 
 	            </div> <!-- /modal-06 -->
 
@@ -551,13 +558,13 @@
 				   <!-- modal popups - end
 				   ============================================================= -->
 
-				</div> <!-- /portfolio-wrapper --> 
+				</div> <!-- /portfolio-wrapper -->
 
-			</div>  <!-- /twelve -->   
+			</div>  <!-- /twelve -->
 
-		</div> <!-- /portfolio-content --> 
-		
-	</section> <!-- /portfolio --> 
+		</div> <!-- /portfolio-content -->
+
+	</section> <!-- /portfolio -->
 
 
 	<!-- CTA Section
@@ -566,27 +573,27 @@
 
 		<div class="row cta-content">
 
-			<div class="col-twelve section-ads">  
+			<div class="col-twelve section-ads">
 
 				<h2 class="h01"><a href="http://www.dreamhost.com/r.cgi?287326|STYLESHOUT">Styleshout Recommends Dreamhost.</a></h2>
 
 				<p class="lead">
 					Looking for an awesome and reliable webhosting? Try <a href="http://www.dreamhost.com/r.cgi?287326|STYLESHOUT"><span>DreamHost</span></a>.
-					Get <span>$50 off</span> when you sign up with the promocode <span>styleshout</span>. 
-					<!-- Simply type	the promocode in the box labeled “Promo Code” when placing your order. -->	
+					Get <span>$50 off</span> when you sign up with the promocode <span>styleshout</span>.
+					<!-- Simply type	the promocode in the box labeled “Promo Code” when placing your order. -->
 				</p>
 
 				<div class="action">
 					<a class="button button-primary large" href="http://www.dreamhost.com/r.cgi?287326|STYLESHOUT">Sign Up Now</a>
-				</div>		     	
+				</div>
 
 			</div>
 
 		</div> <!-- /cta-content -->
 
-	</section> <!-- /cta --> 
+	</section> <!-- /cta -->
 
-	
+
 	<!-- services Section
 	================================================== -->
 	<section id="services">
@@ -601,108 +608,108 @@
 
 				<p class="lead"></p>
 
-			</div>   		
+			</div>
 		</div> <!-- /section-intro -->
 
 		<div class="row services-content">
 
 			<div id="owl-slider" class="owl-carousel services-list">
 
-				<div class="service">	
+				<div class="service">
 
-					<span class="icon"><i class="icon-earth"></i></span>            
+					<span class="icon"><i class="icon-earth"></i></span>
 
-					<div class="service-content">	
+					<div class="service-content">
 
 						<h3>Data Mining</h3>
 
 						<p class="desc">Data mining is the computing process of discovering patterns in large data sets involving methods at the intersection of machine learning, statistics, and database systems.
 						</p>
 
-					</div> 	         	 
-
-				</div> <!-- /service -->
-
-				<div class="service">	
-
-					<span class="icon"><i class="icon-window"></i></span>                          
-
-					<div class="service-content">	
-
-						<h3>Embedded Systems</h3>  
-
-						<p class="desc">An embedded system is a computer system with a dedicated function within a larger mechanical or electrical system, often with real-time computing constraints.
-						</p>
-
-					</div>	                          
+					</div>
 
 				</div> <!-- /service -->
 
 				<div class="service">
 
-					<span class="icon"><i class="icon-paint-brush"></i></span>		            
+					<span class="icon"><i class="icon-window"></i></span>
+
+					<div class="service-content">
+
+						<h3>Embedded Systems</h3>
+
+						<p class="desc">An embedded system is a computer system with a dedicated function within a larger mechanical or electrical system, often with real-time computing constraints.
+						</p>
+
+					</div>
+
+				</div> <!-- /service -->
+
+				<div class="service">
+
+					<span class="icon"><i class="icon-paint-brush"></i></span>
 
 					<div class="service-content">
 
 						<h3>Branding</h3>
 
 						<p class="desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-						</p> 
+						</p>
 
-					</div> 	            	               
+					</div>
 
 				</div> <!-- /service -->
 
 				<div class="service">
 
-					<span class="icon"><i class="icon-toggles"></i></span>	              
+					<span class="icon"><i class="icon-toggles"></i></span>
 
 					<div class="service-content">
 
 						<h3>UI/UX Design</h3>
 
 						<p class="desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-						</p> 
+						</p>
 
-					</div>                
+					</div>
 
 				</div> <!-- /service -->
 
 				<div class="service">
 
-					<span class="icon"><i class="icon-image"></i></span>	            
+					<span class="icon"><i class="icon-image"></i></span>
 
 					<div class="service-content">
 
 						<h3>Graphics Design</h3>
 
 						<p class="desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-						</p> 
+						</p>
 
-					</div>	               
+					</div>
 
 				</div> <!-- /service -->
 
 				<div class="service">
 
-					<span class="icon"><i class="icon-chat"></i></span>	   	           
+					<span class="icon"><i class="icon-chat"></i></span>
 
 					<div class="service-content">
 
 						<h3>Consultancy</h3>
 
 						<p class="desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-						</p> 
+						</p>
 
-					</div>	               
+					</div>
 
 				</div> <!-- /service -->
 
 			</div> <!-- /services-list -->
 
 		</div> <!-- /services-content -->
-		
-	</section> <!-- /services -->	
+
+	</section> <!-- /services -->
 
 
 	<!-- stats Section
@@ -712,7 +719,7 @@
 		<div class="row">
 			<div class="col-twelve">
 
-				<div class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
+				<div class="block-1-4 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
 
 					<div class="bgrid stat">
 
@@ -728,7 +735,7 @@
 							Couses Taken
 						</h5>
 
-					</div> <!-- /stat -->					
+					</div> <!-- /stat -->
 
 					<div class="bgrid stat">
 
@@ -737,7 +744,7 @@
 						</div>
 
 						<h3 class="stat-count">
-							15
+							{{user.publications}}
 						</h3>
 
 						<h5 class="stat-title">
@@ -746,7 +753,7 @@
 
 					</div> <!-- /stat -->
 
-					<div class="bgrid stat">
+					<!-- <div class="bgrid stat">
 
 						<div class="icon-part">
 							<i class="icon-badge"></i>
@@ -760,7 +767,8 @@
 							Awards Received
 						</h5>
 
-					</div> <!-- /stat -->									
+					</div>  -->
+          <!-- /stat -->
 
 					<!-- <div class="bgrid stat">
 
@@ -785,7 +793,7 @@
 						</div>
 
 						<h3 class="stat-count">
-							35
+							{{user.projects}}
 						</h3>
 
 						<h5 class="stat-title">
@@ -801,7 +809,7 @@
 						</div>
 
 						<h3 class="stat-count">
-							1000
+							{{user.students}}
 						</h3>
 
 						<h5 class="stat-title">
@@ -817,7 +825,7 @@
 
 	</section> <!-- /stats -->
 
-	
+
    <!-- contact
    ================================================== -->
    <section id="contact">
@@ -830,7 +838,7 @@
 
    			<p class="lead">Lorem ipsum Do commodo in proident enim in dolor cupidatat adipisicing dolore officia nisi aliqua incididunt Ut veniam lorem ipsum Consectetur ut in in eu do.</p>
 
-   		</div> 
+   		</div>
    	</div> <!-- /section-intro -->
 
    	<div class="row contact-form">
@@ -847,16 +855,16 @@
    				</div>
    				<div class="form-field">
    					<input name="subject" type="text" id="subject" placeholder="Subject" value="" required>
-   				</div>                       
+   				</div>
    				<div class="form-field">
    					<textarea name="message" id="message" placeholder="Enter Your Message Here." rows="10" cols="50" required></textarea>
-   				</div>      
-   				<br>                
+   				</div>
+   				<br>
    				{%csrf_token%}
    				<div class="form-field">
    					<div class="row">
    						<div class="col-six">
-   							<div class="g-recaptcha" data-sitekey="6LdfzzcUAAAAAFbZb4nuuMRtWyfN57FDrcX7aDDX"></div>               
+   							<div class="g-recaptcha" data-sitekey="6LdfzzcUAAAAAFbZb4nuuMRtWyfN57FDrcX7aDDX"></div>
    						</div>
    						<div class="col-three">
    							&nbsp;
@@ -865,7 +873,7 @@
    							<input type="submit" class="submitform" name='submit' style="height:78px;">
    						<!--
    						<div id="submit-loader">
-   							<div class="text-loader">Sending...</div>                             
+   							<div class="text-loader">Sending...</div>
    							<div class="s-loader">
    								<div class="bounce1"></div>
    								<div class="bounce2"></div>
@@ -881,10 +889,10 @@
    	</form> <!-- Form End -->
 
    	<div class="col-twelve" style="color:#008d48; font-size:25px; text-align:center">
-   		{%autoescape off%}{{suc_message}}{%endautoescape%}	
+   		{%autoescape off%}{{suc_message}}{%endautoescape%}
    	</div>
    	<div class="col-twelve" style="color:darkorange; font-size:25px; text-align:center">
-   		{%autoescape off%}{{error_message}}{%endautoescape%}	
+   		{%autoescape off%}{{error_message}}{%endautoescape%}
    	</div>
 
 
@@ -952,33 +960,33 @@
 
    		<div class="col-six tab-full pull-right social">
 
-   			<ul class="footer-social">        
+   			<ul class="footer-social">
    				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 
-   			</ul> 
+   			</ul>
 
    		</div>
 
    		<div class="col-six tab-full">
    			<div class="copyright">
-   				<span>© Copyright IIT Guwahati</span> 
-   				<span>Design by <a href="http://www.styleshout.com/">Abhinav</a></span>	         	
-   			</div>		                  
+   				<span>© Copyright IIT Guwahati</span>
+   				<span>Design by <a href="http://www.styleshout.com/">Abhinav</a></span>
+   			</div>
    		</div>
 
    		<div id="go-top">
    			<a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
    		</div>
 
-   	</div> <!-- /row -->     	
-   </footer>  
+   	</div> <!-- /row -->
+   </footer>
 
-   <div id="preloader"> 
+   <div id="preloader">
    	<div id="loader"></div>
-   </div> 
+   </div>
 
    <!-- Java Script
-   ================================================== --> 
+   ================================================== -->
 
    <script src="{%static 'Public/js/jquery-2.1.3.min.js'%}"></script>
    <script src="{%static 'Public/js/plugins.js'%}"></script>
