@@ -65,9 +65,9 @@ def entities_text(text,sent_score,sent_mag):
 
     if isReview==1:
         if sent_score<0:
-            output='You have a Critical Review from '+naam
+            output='You have a Critical Review '
         if sent_score>0.40 and sent_mag>1:
-            output='You have 1 Positive review from '+naam
+            output='You have 1 Positive review '
 
     if isMeeting==1:
         if len(loc)>0:
