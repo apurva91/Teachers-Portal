@@ -71,7 +71,7 @@
                     <li><!-- start message -->
                       <a href="#">
                         <div class="pull-left">
-                          <img src="{{request.user.profile.avatar.url}}" class="img-circle" alt="User Image">
+                          <img src="/media/avatar" class="img-circle" alt="User Image">
                         </div>
                         <h4>
                           Support Team
@@ -143,13 +143,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{request.user.profile.avatar.url}}" class="user-image" alt="User Image">
+              <img src="/media/avatar" class="user-image" alt="User Image">
               <span class="hidden-xs">{{request.user.profile.name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{request.user.profile.avatar.url}}" class="img-circle" alt="User Image">
+                <img src="/media/avatar" class="img-circle" alt="User Image">
 
                 <p>
                   {{request.user.profile.name}}
@@ -201,7 +201,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{request.user.profile.avatar.url}}" class="img-circle" alt="User Image">
+          <img src="/media/avatar" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
         <div class="gap" style="height:5px;"></div>
@@ -253,7 +253,16 @@
           <a href="/portal/publications">
             <i class="fa fa-book"></i> <span>Publications</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-black">{{user.profile.publications}}</small>
+              <small class="label pull-right bg-blue">{{user.profile.publications}}</small>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/portal/students">
+            <i class="fa fa-book"></i> <span>Students</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-blue">{{user.profile.students}}</small>
             </span>
           </a>
         </li>
