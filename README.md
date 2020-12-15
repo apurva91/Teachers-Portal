@@ -1,4 +1,4 @@
-# Teachers-Portal
+# Teachers Portal
 
 • Smart Faculty Portal Oct 2017
 Dr. Santosh Biswas, Associate Professor, Dept. of CSE, IIT Guwahati git.io/fjp4B
